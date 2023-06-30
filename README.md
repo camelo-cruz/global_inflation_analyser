@@ -24,6 +24,10 @@ The Features...
 
 Please see [Global Inflation Analyzer documentation](#) for more information.
 
+## Code of conduct
+
+Our code of conduct can be found in the code of conduct md file in the respository...
+
 ## Contribution Guidelines
 
 Contributions are always welcome, and to do so, Please make sure your pull request complies with the following guidelines: ...
