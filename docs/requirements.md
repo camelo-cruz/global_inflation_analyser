@@ -23,16 +23,20 @@ Each of these functionalities are addressed following Object Oriented Programmin
 
 - After the cleaning and filtering of the data, it would be nice to know **which of the data were incomplete/deleted to fit my summary**.
 
-<center>
+### must
 
-| must        | should      |could       | would 
-| ----------- | ----------- | -----------|-----------
-| cleaning data |||
-| filtering data|||
-||||
-||||
+- **cleaning:** dealing with missing data 
+- **filtering:** filtering countries, years, products
 
-</center>
+### should
+
+- inform which countries, years, products are missing
+
+### could
+
+- Report a summary of actions taken after cleaning filtering
+
+### would
 
 
 
