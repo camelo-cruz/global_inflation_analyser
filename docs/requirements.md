@@ -15,13 +15,13 @@ Each of these functionalities are addressed following Object Oriented Programmin
 
 ### User stories
 
-- As available datasets are scattered and incomplete, I would like to have a better summarized version of the data with information of chosen countries, years and product.
+- As available datasets are scattered and incomplete, I would like to have a better **summarized version of the data with information of chosen countries, years and product**.
 
-- I would like to know which countries are available in which specific regions.
+- I would like to know **which countries are available in which specific regions**.
 
-- I would like the program to tell me which countries do not have available data for specific products or years.
+- I would like the program to tell me **which countries do not have available data for specific products or years**.
 
-- After the cleaning and filtering of the data, it would be nice to know which of the data were incomplete/deleted to fit my summary
+- After the cleaning and filtering of the data, it would be nice to know **which of the data were incomplete/deleted to fit my summary**.
 
 <center>
 
