@@ -3,7 +3,7 @@
 """
 Created on Tue Jun 27 21:42:10 2023
 
-@author: alejandracamelocruz
+@author: alejandracamelocruz, kshitijkar
 """
 
 import sys
@@ -84,8 +84,11 @@ class Preprocessor:
     
         return data_countries
     
-    def list_years():
-        pass
+    def list_years(self):
+        data = self.by_country(self.product,self.country_list)
+        available_time = data.columns.values
+
+        return available_time
     
     def by_year(self,product:str,country_list:list,start,stop):
         data = self.by_country(product,country_list)
@@ -94,15 +97,20 @@ class Preprocessor:
         print(f"You have chosen the time data from {wanted_columns[0]} to {wanted_columns[-1]}")
         # print(np.where(data.columns.values == start)[0][0])
         # print(np.where(data.columns.values == stop)[0][0])
+
+        return data_years
     
     def list_products(self) -> list:
         list_products = []
-        for file in self.files:
+        for file in self.file_list:
             list_products.append(file.split("_CPI_")[-1].split(".")[0])
         return list_products
-    
-    
-    def by_product(self, product):
+        
+    def by_product(self,product) -> pd.DataFrame:
+        """
+        This function asks the user to input the product they wish to analyse and returns the data set 
+        with only that product.
+        """
         self.product = product
         print(f"You have chosen {self.product}")
         self.data_file = "../data/Consumer_Price_Index_CPI_"+product+".xlsx"
@@ -145,20 +153,21 @@ def main(args):
             if not args.time:
                 prpr.by_country(args.product,args.countries)
                 print("Missing arguement : --time is required")
+                print(prpr.list_years())
             else:
                 start,stop = args.time
                 data = prpr.by_year(args.product,args.countries,start,stop)
                 prpr.display_head(data)
 
 
-    product = args.product
-    countries = args.countries
-    start_year, stop_year = args.time
+    # product = args.product
+    # countries = args.countries
+    # start_year, stop_year = args.time
 
-    print('Product:', product)
-    print('Countries:', countries)
-    print('Start year:', start_year)
-    print('Stop year:', stop_year)
+    # print('Product:', product)
+    # print('Countries:', countries)
+    # print('Start year:', start_year)
+    # print('Stop year:', stop_year)
 
 if __name__ == "__main__":
     main(sys.argv)
