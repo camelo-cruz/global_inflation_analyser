@@ -22,7 +22,7 @@ contact email: camelocruz@uni-potsdam.de
 
 """
 
-import sys
+#import sys
 import os
 import argparse
 import pandas as pd
@@ -30,10 +30,12 @@ import numpy as np
 
 
 class Preprocessor:
+    '''Preprocessor as first stage for data cleaning and filtering'''
     
-    def __init__(self, data_folder='data/'):
-        self.data_folder = data_folder
-        self.files = self.file_list(data_folder)
+    def __init__(self):
+        self.data_folder = self.get_relative_data_directory()
+        self.files = [os.path.join(self.data_folder, file) 
+                      for file in os.listdir(self.data_folder)]
 
 
     def index_cleaning(self,index_list:list) -> list:
@@ -238,7 +240,8 @@ class Preprocessor:
 
         self.product = product
         print(f"You have chosen {self.product}")
-        self.data_file = "../data/Consumer_Price_Index_CPI_"+product+".xlsx"
+        self.data_file = os.path.abspath(
+            os.path.join(self.data_folder, f"Consumer_Price_Index_CPI_{self.product}.xlsx"))
         data = self.data_cleaning(self.data_file)
     
         return data
@@ -260,28 +263,13 @@ class Preprocessor:
         '''
         print(data.head())
 
+    
     @staticmethod
-    def file_list(directory):
-        '''
-        
-
-        Parameters
-        ----------
-        directory : TYPE
-            DESCRIPTION.
-
-        Returns
-        -------
-        file_list : TYPE
-            DESCRIPTION.
-
-        '''
+    def get_relative_data_directory():
         current_dir = os.path.dirname(__file__)
         data_dir = os.path.abspath(os.path.join(current_dir, os.pardir, 'data'))
-        file_list = [os.path.join(data_dir, file) 
-                     for file in os.listdir(data_dir)]
         
-        return file_list
+        return data_dir
         
     
 def main(args):
@@ -291,17 +279,17 @@ def main(args):
     no_time = not args.time
     
     if no_product:
-        print("Missing argument : -p, --products is required")
+        print("Missing argument : -p, --products is required.")
         print(prpr.list_products())
     else:
         if no_countries:
             prpr.by_product(args.product)
-            print("Missing argument : -c, --countries is required")
+            print("Missing argument : -c, --countries is required.")
             print(prpr.list_countries())
         else:
             if no_time:
                 prpr.by_country(args.product,args.countries)
-                print("Missing argument : -t, --time is required")
+                print("Missing argument : -t, --time is required.")
                 print(prpr.list_years())
             else:
                 start,stop = args.time
