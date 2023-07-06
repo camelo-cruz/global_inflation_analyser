@@ -47,6 +47,9 @@ class Preprocessor:
         return data
     
     def list_countries(self,intext=""):
+        """
+        List all the countries available in a data file
+        """
         data = self.data_cleaning(self.files[0])
         list_countries = data.index.to_list()
         intext = input("Enter a part of the countries you want. "
@@ -85,6 +88,7 @@ class Preprocessor:
         return data_countries
     
     def list_years(self):
+        
         data = self.by_country(self.product,self.country_list)
         available_time = data.columns.values
 
@@ -159,15 +163,6 @@ def main(args):
                 data = prpr.by_year(args.product,args.countries,start,stop)
                 prpr.display_head(data)
 
-
-    # product = args.product
-    # countries = args.countries
-    # start_year, stop_year = args.time
-
-    # print('Product:', product)
-    # print('Countries:', countries)
-    # print('Start year:', start_year)
-    # print('Stop year:', stop_year)
 
 if __name__ == "__main__":
     main(sys.argv)
