@@ -50,7 +50,7 @@ class Preprocessor:
         """
         List all the countries available in a data file
         """
-        data = self.data_cleaning(self.files[0])
+        data = self.data_cleaning(self.files[2])
         list_countries = data.index.to_list()
         intext = input("Enter a part of the countries you want. "
                        "Don't write anything or write \"all\" if you want to see "
