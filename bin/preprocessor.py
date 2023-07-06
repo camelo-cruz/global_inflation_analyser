@@ -78,7 +78,6 @@ class Preprocessor:
         """
         Returns data with only selected countries.
         """
-        
         print(f"You have chosen the following countries : {country_list}")
         self.country_list = country_list
         self.product = product
