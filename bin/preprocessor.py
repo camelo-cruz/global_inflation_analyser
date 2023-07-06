@@ -94,6 +94,8 @@ class Preprocessor:
         return available_time
     
     def by_year(self,product:str,country_list:list,start,stop):
+        self.start_time = start
+        self.stop_time = stop
         data = self.by_country(product,country_list)
         wanted_columns = data.columns.values[np.where(data.columns.values == start)[0][0]:np.where(data.columns.values == stop)[0][0]]
         data_years = data[wanted_columns]
@@ -105,7 +107,7 @@ class Preprocessor:
     
     def list_products(self) -> list:
         list_products = []
-        for file in self.file_list:
+        for file in self.files:
             list_products.append(file.split("_CPI_")[-1].split(".")[0])
         return list_products
         
@@ -133,7 +135,37 @@ class Preprocessor:
         
         return file_list
         
-def main(args):
+# def main(args):
+#     # print(args)
+#     prpr = Preprocessor()
+#     parser = argparse.ArgumentParser(description='Command line inputs')
+#     parser.add_argument('--product', type=str, help='Product name')
+#     parser.add_argument('--countries', nargs='+', help='List of countries')
+#     parser.add_argument('--time', type=str, nargs=2, help='Start, Stop')
+
+#     args = parser.parse_args()
+
+#     if not args.product or args.product is None:
+#         print("Missing arguement : --products is required")
+#         print(prpr.list_products())
+#     else:
+#         if not args.countries or args.countries is None:
+#             prpr.by_product(args.product)
+#             print("Missing arguement : --countries is required")
+#             print(prpr.list_countries())
+#         else:
+            
+#             if not args.time:
+#                 prpr.by_country(args.product,args.countries)
+#                 print("Missing arguement : --time is required")
+#                 print(prpr.list_years())
+#             else:
+#                 start,stop = args.time
+#                 data = prpr.by_year(args.product,args.countries,start,stop)
+#                 prpr.display_head(data)
+
+
+if __name__ == "__main__":
     # print(args)
     prpr = Preprocessor()
     parser = argparse.ArgumentParser(description='Command line inputs')
@@ -161,7 +193,3 @@ def main(args):
                 start,stop = args.time
                 data = prpr.by_year(args.product,args.countries,start,stop)
                 prpr.display_head(data)
-
-
-if __name__ == "__main__":
-    main(sys.argv)
