@@ -1,9 +1,25 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Tue Jun 27 21:42:10 2023
+This class ...
 
-@author: alejandracamelocruz, kshitijkar
+Copyright (C) 2023 Kshitij Kar Alejandra Camelo Cruz
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+contact email: camelocruz@uni-potsdam.de
+
 """
 
 import sys
@@ -21,10 +37,22 @@ class Preprocessor:
 
 
     def index_cleaning(self,index_list:list) -> list:
-        """
-        This function takes the index list of any DataFrame, cleans it and returns it 
-        to the calling function to replace the previous data index with the cleaned data index. 
-        """
+        '''
+        This function takes the index list of any DataFrame, cleans it 
+        and returns it to the calling function to replace the previous 
+        data index with the cleaned data index. 
+
+        Parameters
+        ----------
+        index_list : list
+            DESCRIPTION.
+
+        Returns
+        -------
+        list
+            DESCRIPTION.
+
+        '''
         outlist = []
         for country in index_list:
             if country[0:5] == "China":
@@ -33,11 +61,23 @@ class Preprocessor:
                 outlist.append(country.split(",")[0].replace(" ","_"))
         return outlist
 
+
     def data_cleaning(self,file_location:str) -> pd.DataFrame:
-        """
+        '''
         This function reads any particular data set provided and 
         cleans the column headers and indexes and returns the DataFrame.
-        """
+
+        Parameters
+        ----------
+        file_location : str
+            DESCRIPTION.
+
+        Returns
+        -------
+        data : TYPE
+            DESCRIPTION.
+
+        '''
         data = pd.read_excel(file_location)
         data.index = data["Unnamed: 0"]
         data = data.drop(columns=["Unnamed: 0"])
@@ -46,10 +86,22 @@ class Preprocessor:
         
         return data
     
+    
     def list_countries(self,intext=""):
-        """
+        '''
         List all the countries available in a data file
-        """
+        
+        Parameters
+        ----------
+        intext : TYPE, optional
+            DESCRIPTION. The default is "".
+
+        Returns
+        -------
+        TYPE
+            DESCRIPTION.
+
+        '''
         data = self.data_cleaning(self.files[0])
         list_countries = data.index.to_list()
         intext = input("Enter a part of the countries you want. "
@@ -74,11 +126,25 @@ class Preprocessor:
                         list_countries_specific.append(country)
                 return list_countries_specific
     
+    
     def by_country(self,product:str,country_list:list) -> pd.DataFrame:
-        """
+        '''
         Returns data with only selected countries.
-        """
-        
+
+        Parameters
+        ----------
+        product : str
+            DESCRIPTION.
+        country_list : list
+            DESCRIPTION.
+
+        Returns
+        -------
+        data_countries : TYPE
+            DESCRIPTION.
+
+        '''
+
         print(f"You have chosen the following countries : {country_list}")
         self.country_list = country_list
         self.product = product
@@ -87,16 +153,50 @@ class Preprocessor:
     
         return data_countries
     
+    
     def list_years(self):
+        '''
+        
+
+        Returns
+        -------
+        available_time : TYPE
+            DESCRIPTION.
+
+        '''
         
         data = self.by_country(self.product,self.country_list)
         available_time = data.columns.values
 
         return available_time
     
+    
     def by_year(self,product:str,country_list:list,start,stop):
+        '''
+        
+
+        Parameters
+        ----------
+        product : str
+            DESCRIPTION.
+        country_list : list
+            DESCRIPTION.
+        start : TYPE
+            DESCRIPTION.
+        stop : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        data_years : TYPE
+            DESCRIPTION.
+
+        '''
         data = self.by_country(product,country_list)
-        wanted_columns = data.columns.values[np.where(data.columns.values == start)[0][0]:np.where(data.columns.values == stop)[0][0]]
+        wanted_columns = data.columns.values[np.where(data.columns.
+                                                      values == start)[0][0]:
+                                             np.where(data.columns.
+                                                      values == stop)[0][0]]
         data_years = data[wanted_columns]
         print(f"You have chosen the time data from {wanted_columns[0]} to {wanted_columns[-1]}")
         # print(np.where(data.columns.values == start)[0][0])
@@ -105,16 +205,37 @@ class Preprocessor:
         return data_years
     
     def list_products(self) -> list:
+        '''
+        
+
+        Returns
+        -------
+        list
+            DESCRIPTION.
+
+        '''
         list_products = []
-        for file in self.file_list:
+        for file in self.files:
             list_products.append(file.split("_CPI_")[-1].split(".")[0])
         return list_products
         
     def by_product(self,product) -> pd.DataFrame:
-        """
-        This function asks the user to input the product they wish to analyse and returns the data set 
-        with only that product.
-        """
+        '''
+        This function asks the user to input the product they wish to analyse 
+        and returns the data set with only that product.
+
+        Parameters
+        ----------
+        product : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        data : TYPE
+            DESCRIPTION.
+
+        '''
+
         self.product = product
         print(f"You have chosen {self.product}")
         self.data_file = "../data/Consumer_Price_Index_CPI_"+product+".xlsx"
@@ -123,10 +244,38 @@ class Preprocessor:
         return data
 
     def display_head(self, data: pd.DataFrame) -> None:
+        '''
+        
+
+        Parameters
+        ----------
+        data : pd.DataFrame
+            DESCRIPTION.
+
+        Returns
+        -------
+        None
+            DESCRIPTION.
+
+        '''
         print(data.head())
 
     @staticmethod
     def file_list(directory):
+        '''
+        
+
+        Parameters
+        ----------
+        directory : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        file_list : TYPE
+            DESCRIPTION.
+
+        '''
         current_dir = os.path.dirname(__file__)
         data_dir = os.path.abspath(os.path.join(current_dir, os.pardir, 'data'))
         file_list = [os.path.join(data_dir, file) 
@@ -134,29 +283,25 @@ class Preprocessor:
         
         return file_list
         
+    
 def main(args):
-    # print(args)
     prpr = Preprocessor()
-    parser = argparse.ArgumentParser(description='Command line inputs')
-    parser.add_argument('--product', type=str, help='Product name')
-    parser.add_argument('--countries', nargs='+', help='List of countries')
-    parser.add_argument('--time', type=str, nargs=2, help='Start, Stop')
-
-    args = parser.parse_args()
-
-    if not args.product or args.product is None:
-        print("Missing arguement : --products is required")
+    no_product = (not args.product or args.product is None)
+    no_countries = (not args.countries or args.countries is None) 
+    no_time = not args.time
+    
+    if no_product:
+        print("Missing argument : -p, --products is required")
         print(prpr.list_products())
     else:
-        if not args.countries or args.countries is None:
+        if no_countries:
             prpr.by_product(args.product)
-            print("Missing arguement : --countries is required")
+            print("Missing argument : -c, --countries is required")
             print(prpr.list_countries())
         else:
-            
-            if not args.time:
+            if no_time:
                 prpr.by_country(args.product,args.countries)
-                print("Missing arguement : --time is required")
+                print("Missing argument : -t, --time is required")
                 print(prpr.list_years())
             else:
                 start,stop = args.time
@@ -164,5 +309,13 @@ def main(args):
                 prpr.display_head(data)
 
 
+
 if __name__ == "__main__":
-    main(sys.argv)
+    parser = argparse.ArgumentParser(description='Command line inputs')
+    parser.add_argument('-p', '--product', type=str, help='Product name')
+    parser.add_argument('-c', '--countries', nargs='+', help='List of countries')
+    parser.add_argument('-t', '--time', type=str, nargs=2, help='Start, Stop')
+
+    args = parser.parse_args()
+
+    main(args)
