@@ -38,6 +38,7 @@ class Preprocessor:
         self.data_folder = self.get_relative_data_directory()
         self.files = [os.path.join(self.data_folder, file) 
                       for file in os.listdir(self.data_folder)]
+        
 
 
     def index_cleaning(self, index_list:list) -> list:
