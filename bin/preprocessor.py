@@ -228,7 +228,10 @@ class Preprocessor:
         '''
         list_products = []
         for file in self.files:
-            list_products.append(file.split("_CPI_")[-1].split(".")[0])
+            if file.endswith(".xlsx"):
+                list_products.append(file.split("_CPI_")[-1].split(".")[0])
+            else:
+                continue
         return list_products
         
     
@@ -253,11 +256,17 @@ class Preprocessor:
         logging.basicConfig(level=logging.INFO)
         logging.info(bcolors.OKGREEN + f"You have chosen {self.product}"+
               bcolors.ENDC)
-        self.data_file = os.path.abspath(
-            os.path.join(self.data_folder, f"Consumer_Price_Index_CPI_{self.product}.xlsx"))
-        data = self.data_cleaning(self.data_file)
+        if self.product in self.list_products():
+            self.data_file = os.path.abspath(
+                os.path.join(self.data_folder, f"Consumer_Price_Index_CPI_{self.product}.xlsx"))
+            data = self.data_cleaning(self.data_file)
+            return data
+        else:
+            print(f"{self.product} is not a valid option")
+            print(self.list_products())
+            exit()
     
-        return data
+        
 
     def display_head(self, data: pd.DataFrame) -> None:
         '''
