@@ -1,0 +1,38 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Global_Inflation_Analyser
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Kshitij
+    family-names: Kar
+    email: kar@uni-potsdam.de
+    affiliation: Universität Potsdam
+  - given-names: Camelo Cruz
+    family-names: Alejandra
+    email: camelocruz@uni-potsdam.de
+    affiliation: Universität Potsdam
+  - given-names: Leon
+    family-names: Oparin
+    email: leon.oparin@uni-potsdam.de
+    affiliation: Universität Potsdam
+  - given-names: Bruk Asrat
+    family-names: Tsega
+    email: tsega@uni-potsdam.de
+    affiliation: Universität Potsdam
+abstract: >-
+  This project is named as Global Inflation Analyzer (GIA).
+  It is a python library, and written to give a
+  comprehensive analysis of inflation rate. The library can
+  be used to perform analysis based on a given dataset with
+  the classification standard of classification of
+  individual consumption by purpose (COICOP 2-5-digit
+  hierarchy).
+keywords:
+  - Consumer Price Index
+  - Inflation Rate
+license: GPL-3.0-or-later
