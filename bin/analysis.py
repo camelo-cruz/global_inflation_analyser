@@ -11,8 +11,9 @@ from preprocessor import Preprocessor
 class Analyser(Preprocessor):
 
     def __init__(self,data_folder="data/") -> None:
-        self.data_folder = data_folder
-        self.files = self.file_list(data_folder)
+        self.data_folder = self.get_relative_data_directory()
+        self.files = [os.path.join(self.data_folder, file) 
+                      for file in os.listdir(self.data_folder)]
         # data = self.by_year(self.product,self.country_list,self.start_time,self.stop_time)
         # print(data.head(5))
 
@@ -59,10 +60,10 @@ class Analyser(Preprocessor):
 
 if __name__ == "__main__":
     analyser = Analyser()
-    parser = argparse.ArgumentParser(description='Command line inputs')
-    parser.add_argument('--product', type=str, help='Product name')
-    parser.add_argument('--countries', nargs='+', help='List of countries')
-    parser.add_argument('--time', type=str, nargs=2, help='Start, Stop')
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('-p', '--product', type=str, help='Product name')
+    parser.add_argument('-c', '--countries', nargs='+', help='List of countries')
+    parser.add_argument('-t', '--time', type=str, nargs=2, help='Start, Stop')
 
     args = parser.parse_args()
 
