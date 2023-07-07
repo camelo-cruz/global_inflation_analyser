@@ -26,6 +26,7 @@ contact email: camelocruz@uni-potsdam.de, kar@uni-potsdam.de
 
 import os
 import argparse
+import logging
 import pandas as pd
 import numpy as np
 
@@ -149,10 +150,11 @@ class Preprocessor:
             returns Pandas dataframe with selected product and countries.
 
         '''
+        logging.basicConfig(level=logging.INFO)
         for index in range(len(country_list)):
             country_list[index] = country_list[index].capitalize()
-        print(bcolors.OKGREEN + f"You have chosen the following countries : {country_list}" +
-              bcolors.ENDC)
+        logging.info(bcolors.OKGREEN+f"You have chosen the following countries : {country_list}"
+                     +bcolors.ENDC)
         self.country_list = country_list
         self.product = product
         data = self.by_product(product)
@@ -207,11 +209,9 @@ class Preprocessor:
                                              np.where(data.columns.
                                                       values == stop)[0][0]]
         data_years = data[wanted_columns]
-        print(bcolors.OKGREEN + 
-              f"You have chosen the time data from {wanted_columns[0]} to {wanted_columns[-1]}"+
-              bcolors.ENDC)
-        # print(np.where(data.columns.values == start)[0][0])
-        # print(np.where(data.columns.values == stop)[0][0])
+        logging.basicConfig(level=logging.INFO)
+        logging.info(bcolors.OKGREEN+f"You have chosen the time data from {wanted_columns[0]} to {wanted_columns[-1]}"
+                     +bcolors.ENDC)
 
         return data_years
     
@@ -249,7 +249,8 @@ class Preprocessor:
         '''
 
         self.product = product.capitalize()
-        print(bcolors.OKGREEN + f"You have chosen {self.product}"+
+        logging.basicConfig(level=logging.INFO)
+        logging.info(bcolors.OKGREEN + f"You have chosen {self.product}"+
               bcolors.ENDC)
         self.data_file = os.path.abspath(
             os.path.join(self.data_folder, f"Consumer_Price_Index_CPI_{self.product}.xlsx"))
@@ -310,22 +311,23 @@ def main(args):
     no_countries = (not args.countries or args.countries is None) 
     no_time = not args.time
     
+    
+    
     if no_product:
-        print(bcolors.WARNING + "Missing argument : -p, --products is required."+
-              bcolors.ENDC)
+        logging.error(bcolors.FAIL+"Missing argument : -p, --products is required."
+                      +bcolors.ENDC)
         print(prpr.list_products())
     else:
         if no_countries:
             prpr.by_product(args.product)
-            print(bcolors.WARNING + "Missing argument : -c, --countries can be specified."+
-                  bcolors.ENDC)
+            logging.warning(bcolors.WARNING+"Missing argument : -c, --countries can be specified."
+                         +bcolors.ENDC)
             print(prpr.list_countries())
         else:
             if no_time:
                 prpr.by_country(args.product,args.countries)
-                print(bcolors.WARNING + 
-                      "Missing argument : -t, --time can be specified. Correct format: "+
-                      'start:Month_year  end:Month_year e.g Jan_2010 Dec_2012'+ bcolors.ENDC)
+                logging.warning(bcolors.WARNING+"Missing argument : -t, --time can be specified. Correct format: "+
+                      'start:Month_year  end:Month_year e.g Jan_2010 Dec_2012'+bcolors.ENDC)
                 print(prpr.list_years())
             else:
                 start,stop = args.time
