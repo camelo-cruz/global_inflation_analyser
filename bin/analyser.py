@@ -47,6 +47,7 @@ class Analyser:
         self.product_nation = pre_proc.by_country(product,product_nation)
         #data = pre_proc.by_year(product,product_nation,'Dec_2021', 'Jan_2022')
         data = pre_proc.by_year(product,product_nation,start, end)
+        print(data)
         return data
             
     
@@ -65,11 +66,12 @@ class Analyser:
             returns calculated inflation rate
 
         """
+        #Reference date
         prev_cpi = 100
-        time_span = result.columns.values.tolist()     
+        time_span = result.columns.values.tolist()
         for time in time_span:
             infl = time + '_INF'
-            #Inflation = ((New CPI - Old Year CPI)/ Old Year CPI) X 100
+            #Inflation = ((New CPI - Previous Month CPI)/ Previous Month CPI) X 100
             val = round(((result[time]-prev_cpi) / prev_cpi)* 100 , 1)
             prev_cpi = result[str(time)]
             result[infl] = val
@@ -103,10 +105,18 @@ class Analyser:
         #print(products1)
         #products = products1.values.tolist()
         resultframe = pd.DataFrame()
-        for product in PRODUCTS:            
+        for product in PRODUCTS:             
             result = self.query_formatter(product,nation,start,stop)
             #result2 = pd.append(result,ignore_index=True,sort=False)
+            
             resultframe = resultframe._append(result,ignore_index=True,sort=False)
+        
+        i = 0
+        for product in PRODUCTS:                
+            resultframe = resultframe.rename(index={i: PRODUCTS[i]})
+            i+=1
+            
+        print (resultframe.index.values)
         return resultframe
 
 
