@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""
+Inflation Analyzer class.
+
+Created on Sat Jul 08 21:15:48 2023
+
+@author: Bruk Asrat
+"""
 
 import sys
 import os
@@ -8,13 +15,8 @@ import pandas as pd
 import numpy as np
 from preprocessor import Preprocessor
 
-class Analyser(Preprocessor):
 
-    def __init__(self,data_folder="data/") -> None:
-        self.data_folder = data_folder
-        self.files = self.file_list(data_folder)
-        # data = self.by_year(self.product,self.country_list,self.start_time,self.stop_time)
-        # print(data.head(5))
+class Analyser(Preprocessor):
 
     def set_datafile(self,product:str,country_list:list,start_time:str,stop_time:str) -> pd.DataFrame:
         self.product = product
@@ -23,9 +25,79 @@ class Analyser(Preprocessor):
         self.stop_time = stop_time
     
         self.data = self.by_year(product,country_list,start_time,stop_time)
-        print("From set_datafile\n")
-        print(self.data.head(5))
+        # print("From set_datafile\n")
+        # print(self.data.head(5))
+
         return self.data
+
+    def inflation_calculator(self,input_df:pd.DataFrame) -> pd.DataFrame:
+        """
+        This function calculates inflation rate of a given dataframe.
+
+        Parameters
+        ----------
+        input_df : pandas DataFrame
+            well formulated dataframe result of other functions ready to be analysed. 
+
+        Returns
+        -------
+        inflation_result : dataframe
+            returns calculated inflation rate
+
+        """
+        
+        prev_cpi = 100
+        time_span = input_df.columns.values.tolist()
+        for time in time_span:
+            infl = time + '_INF'
+            #Inflation = ((New CPI - Previous Month CPI)/ Previous Month CPI) X 100
+            val = round(((input_df[time]-prev_cpi) / prev_cpi)* 100 , 1)
+            prev_cpi = input_df[str(time)]
+            input_df[infl] = val
+        
+        inflation_result = input_df.loc[:, ~input_df.columns.isin(time_span)]
+        #print(inflation_result)
+
+        return inflation_result
+    
+    def all_products_inflation(self,nation:str,start:str,stop:str) -> pd.DataFrame:
+        """
+        This function merge all products inflation rate of a given country for 
+        specific period of time, provided by the user.
+
+        Parameters
+        ----------
+        nation : string
+            The name of the country
+        start : string
+            The initial month or the reference month.
+        stop : string
+            The last month of the time.
+
+        Returns
+        -------
+        resultframe : dataframe
+        Returns a dataframe of all products for a given period of time and country.
+
+        """
+        product_list = self.list_products()
+        l_nation = [nation]
+
+        resultframe = pd.DataFrame()
+        
+        for product in product_list:             
+            result = self.set_datafile(product,l_nation,start,stop)
+            #result2 = pd.append(result,ignore_index=True,sort=False)
+            
+            resultframe = resultframe.append(result,ignore_index=True,sort=False)
+        
+        for i,product in enumerate(product_list):                
+            resultframe = resultframe.rename(index={i: product_list[i]})
+            
+        print (resultframe.index.values)
+        
+        return resultframe
+
     
 # def main(args):
     # print(args)

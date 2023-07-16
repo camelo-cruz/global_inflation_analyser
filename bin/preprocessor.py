@@ -91,6 +91,52 @@ class Preprocessor:
         
         return data
     
+    def list_products(self) -> list:
+        '''
+        List products available in a data file
+
+        Returns
+        -------
+        list
+            list with possible product entries.
+
+        '''
+        list_products = []
+        for file in self.files:
+            if file.endswith(".xlsx"):
+                list_products.append(file.split("_CPI_")[-1].split(".")[0])
+            else:
+                continue
+        return list_products
+        
+    
+    def by_product(self, product) -> pd.DataFrame:
+        '''
+        This function asks the user to input the product they wish to analyse 
+        and returns the data set with only that product.
+
+        Parameters
+        ----------
+        product : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        data : TYPE
+            DESCRIPTION.
+
+        '''
+
+        # self.product = product.capitalize()
+        logging.basicConfig(level=logging.INFO)
+        logging.info(bcolors.OKGREEN + f"You have chosen {self.product}"+
+              bcolors.ENDC)
+        self.data_file = os.path.abspath(
+            os.path.join(self.data_folder, f"Consumer_Price_Index_CPI_{self.product}.xlsx"))
+        data = self.data_cleaning(self.data_file)
+    
+        return data
+    
     
     def list_countries(self, intext=""):
         '''
@@ -108,11 +154,15 @@ class Preprocessor:
             all the countries.
 
         '''
-        data = self.data_cleaning(self.files[2])
+        data = self.data_cleaning(self.files[0])
         list_countries = data.index.to_list()
-        intext = input("Enter a part of the countries you want. "
-                       "Don't write anything or write \"all\" if you want to see "
-                       "a list with all available countries: ")
+        if intext != "all" or intext is None:
+            intext = input("Enter a part of the countries you want. "
+                        "Don't write anything or write \"all\" if you want to see "
+                        "a list with all available countries: ")
+        else:
+            pass
+            
         intext = intext.capitalize()
         all_countries = (intext == "" or intext == 'All')
         if all_countries:
@@ -151,8 +201,9 @@ class Preprocessor:
 
         '''
         logging.basicConfig(level=logging.INFO)
-        for index in range(len(country_list)):
-            country_list[index] = country_list[index].capitalize()
+
+        # for index, country in enumerate(country_list):
+        #     country_list[index] = country_list[index].capitalize()
         logging.info(bcolors.OKGREEN+f"You have chosen the following countries : {country_list}"
                      +bcolors.ENDC)
         self.country_list = country_list
@@ -174,11 +225,10 @@ class Preprocessor:
 
         '''
         
-        data = self.by_country(self.product, self.country_list)
+        data = self.by_country("Education", self.list_countries(intext="all"));
         available_time = data.columns.values
 
         return available_time
-    
     
     def by_year(self, product:str, country_list:list, start, stop):
         '''
@@ -215,49 +265,6 @@ class Preprocessor:
 
         return data_years
     
-    def list_products(self) -> list:
-        '''
-        List products available in a data file
-
-        Returns
-        -------
-        list
-            list with possible product entries.
-
-        '''
-        list_products = []
-        for file in self.files:
-            list_products.append(file.split("_CPI_")[-1].split(".")[0])
-        return list_products
-        
-    
-    def by_product(self, product) -> pd.DataFrame:
-        '''
-        This function asks the user to input the product they wish to analyse 
-        and returns the data set with only that product.
-
-        Parameters
-        ----------
-        product : TYPE
-            DESCRIPTION.
-
-        Returns
-        -------
-        data : TYPE
-            DESCRIPTION.
-
-        '''
-
-        self.product = product.capitalize()
-        logging.basicConfig(level=logging.INFO)
-        logging.info(bcolors.OKGREEN + f"You have chosen {self.product}"+
-              bcolors.ENDC)
-        self.data_file = os.path.abspath(
-            os.path.join(self.data_folder, f"Consumer_Price_Index_CPI_{self.product}.xlsx"))
-        data = self.data_cleaning(self.data_file)
-    
-        return data
-
     def display_head(self, data: pd.DataFrame) -> None:
         '''
         this function displays head of pandas data frame
