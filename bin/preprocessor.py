@@ -35,12 +35,12 @@ class Preprocessor:
     '''Preprocessor for data cleaning and data filtering'''
     
     def __init__(self):
-        self.data_folder = self.get_relative_data_directory()
+        self.data_folder = self._get_relative_data_directory()
         self.files = [os.path.join(self.data_folder, file) 
                       for file in os.listdir(self.data_folder)]
 
 
-    def index_cleaning(self, index_list:list) -> list:
+    def _index_cleaning(self, index_list:list) -> list:
         '''
         This function takes the index list of any DataFrame, cleans it 
         and returns it to the calling function to replace the previous 
@@ -67,7 +67,7 @@ class Preprocessor:
         return outlist
 
 
-    def data_cleaning(self, file_location:str) -> pd.DataFrame:
+    def _data_cleaning(self, file_location:str) -> pd.DataFrame:
         '''
         This function reads any particular data set provided and 
         cleans the column headers and indexes and returns the clened DataFrame.
@@ -83,11 +83,14 @@ class Preprocessor:
             Pandas DataFrame with clean columns and rows.
 
         '''
-        data = pd.read_excel(file_location)
+        if file_location.endswith(".xlsx"):
+            data = pd.read_excel(file_location)
+        elif file_location.endswith(".csv"):
+            data = pd.read_csv(file_location)
         data.index = data["Unnamed: 0"]
         data = data.drop(columns=["Unnamed: 0"])
         data.columns = [c.strip().replace(" ","_") for c in data.columns.values.tolist()]
-        data.index = self.index_cleaning(data.index.tolist())
+        data.index = self._index_cleaning(data.index.tolist())
         
         return data
     
@@ -110,7 +113,7 @@ class Preprocessor:
         return list_products
         
     
-    def by_product(self, product) -> pd.DataFrame:
+    def by_product(self, product:str) -> pd.DataFrame:
         '''
         This function asks the user to input the product they wish to analyse 
         and returns the data set with only that product.
@@ -132,8 +135,8 @@ class Preprocessor:
         logging.info(bcolors.OKGREEN + f"You have chosen {self.product}"+
               bcolors.ENDC)
         self.data_file = os.path.abspath(
-            os.path.join(self.data_folder, f"Consumer_Price_Index_CPI_{self.product}.xlsx"))
-        data = self.data_cleaning(self.data_file)
+            os.path.join(self.data_folder, f"Consumer_Price_Index_CPI_{product}.xlsx"))
+        data = self._data_cleaning(self.data_file)
     
         return data
     
@@ -154,26 +157,33 @@ class Preprocessor:
             all the countries.
 
         '''
-        data = self.data_cleaning(self.files[0])
+        continent_list = ["Africa","Asia","Europe","North_america","Oceania","South_america"]
+        data = self._data_cleaning(self.files[0])
         list_countries = data.index.to_list()
-        if intext != "all" or intext is None:
-            intext = input("Enter a part of the countries you want. "
-                        "Don't write anything or write \"all\" if you want to see "
-                        "a list with all available countries: ")
-        else:
-            pass
+        # if intext != "all" or intext is None:
+        #     intext = input("Enter a part of the countries you want. "
+        #                 "Don't write anything or write \"all\" if you want to see "
+        #                 "a list with all available countries: ")
+        # else:
+        #     pass
             
         intext = intext.capitalize()
         all_countries = (intext == "" or intext == 'All')
+        
         if all_countries:
             return list_countries
+        
+        elif intext in continent_list:
+            temp_data = self._data_cleaning(
+                file_location="../data/product_group_CPI/"+intext.lower()+"_products_CPI/CPI_Education.csv")
+            return temp_data.index.to_list()
+        
         else:
             if intext.endswith("*"):
                 list_countries_specific = []
                 for country in list_countries:
                     if country.startswith(intext[:-1]):
                         list_countries_specific.append(country)
-                
                 return list_countries_specific
             else:
                 list_countries_specific = []
@@ -265,28 +275,8 @@ class Preprocessor:
 
         return data_years
     
-    def display_head(self, data: pd.DataFrame) -> None:
-        '''
-        this function displays head of pandas data frame
-
-        Parameters
-        ----------
-        data : pd.DataFrame
-            DESCRIPTION.
-
-        Returns
-        -------
-        None
-            DESCRIPTION.
-
-        '''
-        #print(data.head())
-        return data
-        #return data.head()
-
-    
     @staticmethod
-    def get_relative_data_directory():
+    def _get_relative_data_directory():
         '''
         
 
@@ -341,7 +331,7 @@ def main(args):
             else:
                 start,stop = args.time
                 data = prpr.by_year(args.product,args.countries,start,stop)
-                prpr.display_head(data)
+                
 
 
 

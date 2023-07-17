@@ -8,11 +8,11 @@ Created on Sat Jul 08 21:15:48 2023
 @author: Bruk Asrat
 """
 
-import sys
-import os
+# import sys
+# import os
 import argparse
 import pandas as pd
-import numpy as np
+# import numpy as np
 from preprocessor import Preprocessor
 
 
@@ -60,7 +60,7 @@ class Analyser(Preprocessor):
 
         return inflation_result
     
-    def all_products_inflation(self,nation:str,start:str,stop:str) -> pd.DataFrame:
+    def all_products_inflation(self,nation:str,start_time:str,stop_time:str) -> pd.DataFrame:
         """
         This function merge all products inflation rate of a given country for 
         specific period of time, provided by the user.
@@ -86,7 +86,7 @@ class Analyser(Preprocessor):
         resultframe = pd.DataFrame()
         
         for product in product_list:             
-            result = self.set_datafile(product,l_nation,start,stop)
+            result = self.set_datafile(product,l_nation,start_time,stop_time)
             #result2 = pd.append(result,ignore_index=True,sort=False)
             
             resultframe = resultframe.append(result,ignore_index=True,sort=False)
