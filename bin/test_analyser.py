@@ -5,7 +5,7 @@ Created on Thu Jul 13 11:54:41 2023
 @author: Bruk
 """
 import pandas as pd
-from analyser import Analyser
+from analysis import Analyser
 
 
 def test_calculate_inflation():
