@@ -146,7 +146,7 @@ class Preprocessor:
             exit()
     
     
-    def list_countries(self, intext=""):
+    def list_countries(self, intext=None):
         '''
         List all the countries available in a data file
         
