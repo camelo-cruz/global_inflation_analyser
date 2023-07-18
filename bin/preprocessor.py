@@ -40,7 +40,7 @@ class Preprocessor:
                       for file in os.listdir(self.data_folder)]
 
 
-    def index_cleaning(self, index_list:list) -> list:
+    def _index_cleaning(self, index_list:list) -> list:
         '''
         This function takes the index list of any DataFrame, cleans it 
         and returns it to the calling function to replace the previous 
@@ -130,15 +130,20 @@ class Preprocessor:
 
         '''
 
-        # self.product = product.capitalize()
         logging.basicConfig(level=logging.INFO)
-        logging.info(bcolors.OKGREEN + f"You have chosen {self.product}"+
+        logging.info(bcolors.OKGREEN + f"You have chosen {product}"+
               bcolors.ENDC)
-        self.data_file = os.path.abspath(
-            os.path.join(self.data_folder, f"Consumer_Price_Index_CPI_{product}.xlsx"))
-        data = self._data_cleaning(self.data_file)
-    
-        return data
+        if self.product in self.list_products():
+            self.data_file = os.path.abspath(
+                os.path.join(self.data_folder, f"Consumer_Price_Index_CPI_{product}.xlsx"))
+            data = self._data_cleaning(self.data_file)
+            
+            return data
+        
+        else:
+            print(f"{self.product} is not a valid option")
+            print(self.list_products())
+            exit()
     
     
     def list_countries(self, intext=""):
@@ -273,76 +278,7 @@ class Preprocessor:
         logging.info(bcolors.OKGREEN+f"You have chosen the time data from {wanted_columns[0]} to {wanted_columns[-1]}"
                      +bcolors.ENDC)
 
-        return data_years
-    
-    def list_products(self) -> list:
-        '''
-        List products available in a data file
-
-        Returns
-        -------
-        list
-            list with possible product entries.
-
-        '''
-        list_products = []
-        for file in self.files:
-            if file.endswith(".xlsx"):
-                list_products.append(file.split("_CPI_")[-1].split(".")[0])
-            else:
-                continue
-        return list_products
-        
-    
-    def by_product(self, product) -> pd.DataFrame:
-        '''
-        This function asks the user to input the product they wish to analyse 
-        and returns the data set with only that product.
-
-        Parameters
-        ----------
-        product : TYPE
-            DESCRIPTION.
-
-        Returns
-        -------
-        data : TYPE
-            DESCRIPTION.
-
-        '''
-
-        self.product = product.capitalize()
-        logging.basicConfig(level=logging.INFO)
-        logging.info(bcolors.OKGREEN + f"You have chosen {self.product}"+
-              bcolors.ENDC)
-        if self.product in self.list_products():
-            self.data_file = os.path.abspath(
-                os.path.join(self.data_folder, f"Consumer_Price_Index_CPI_{self.product}.xlsx"))
-            data = self.data_cleaning(self.data_file)
-            return data
-        else:
-            print(f"{self.product} is not a valid option")
-            print(self.list_products())
-            exit()
-    
-        
-
-    def display_head(self, data: pd.DataFrame) -> None:
-        '''
-        this function displays head of pandas data frame
-
-        Parameters
-        ----------
-        data : pd.DataFrame
-            DESCRIPTION.
-
-        Returns
-        -------
-        None
-            DESCRIPTION.
-
-        '''
-        print(data.head())
+        return data_years    
 
     
     @staticmethod
