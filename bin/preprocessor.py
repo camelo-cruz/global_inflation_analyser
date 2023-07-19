@@ -38,6 +38,36 @@ class Preprocessor:
         self.data_folder = self._get_relative_data_directory()
         self.files = [os.path.join(self.data_folder, file) 
                       for file in os.listdir(self.data_folder)]
+        self.product = "Education"
+        self.cl = ['Austria',
+                    'Belgium',
+                    'Bulgaria',
+                    'Croatia',
+                    'Czech_rep.',
+                    'Denmark',
+                    'Estonia',
+                    'Finland',
+                    'France',
+                    'Germany',
+                    'Greece',
+                    'Hungary',
+                    'Iceland',
+                    'Ireland',
+                    'Italy',
+                    'Latvia',
+                    'Lithuania',
+                    'Luxembourg',
+                    'Montenegro',
+                    'Netherlands',
+                    'Norway',
+                    'Poland',
+                    'Portugal',
+                    'Russian_federation',
+                    'Serbia',
+                    'Spain',
+                    'Switzerland',
+                    'Ukraine',
+                    'United_kingdom']
 
 
     def _index_cleaning(self, index_list:list) -> list:
@@ -155,7 +185,7 @@ class Preprocessor:
         
     
     
-    def list_countries(self, intext=""):
+    def list_countries(self, intext="") -> list:
         '''
         List all the countries available in a data file
         
@@ -242,12 +272,17 @@ class Preprocessor:
                      +bcolors.ENDC)
         
         data = self.by_product(product)
-        data_countries = data.loc[cl]
-    
+        available_countries = [country for country in cl if country in data.index]
+        wrong_countries = [country for country in cl if country not in data.index]
+
+
+        data_countries = data.loc[available_countries]
+        if len(wrong_countries) != 0:
+            print(f"These countries are not available or misspelled:\n {wrong_countries}") 
         return data_countries
     
     
-    def list_years(self):
+    def list_years(self) -> list:
         '''
         List years available in a data file
 
@@ -263,7 +298,7 @@ class Preprocessor:
 
         return available_time
     
-    def by_year(self, product:str, country_list:list, start, stop):
+    def by_year(self, product:str, cl:list, start, stop) -> pd.DataFrame:
         '''
         Returns data with selected years.
 
@@ -286,18 +321,22 @@ class Preprocessor:
         '''
         start = start.capitalize()
         stop = stop.capitalize()
-        data = self.by_country(product,country_list)
-        wanted_columns = data.columns.values[np.where(data.columns.
-                                                      values == start)[0][0]:
-                                             np.where(data.columns.
-                                                      values == stop)[0][0]]
-        data_years = data[wanted_columns]
-        logging.basicConfig(level=logging.INFO)
-        logging.info(bcolors.OKGREEN+f"You have chosen the time data from {wanted_columns[0]} to {wanted_columns[-1]}"
-                     +bcolors.ENDC)
+        data = self.by_country(product,cl)
+        if (start in data.columns.values) and (stop in data.columns.values):
+            wanted_columns = data.columns.values[np.where(data.columns.
+                                                        values == start)[0][0]:
+                                                np.where(data.columns.
+                                                        values == stop)[0][0]]
+            data_years = data[wanted_columns]
+            logging.basicConfig(level=logging.INFO)
+            logging.info(bcolors.OKGREEN+f"You have chosen the time data from {wanted_columns[0]} to {wanted_columns[-1]}"
+                        +bcolors.ENDC)
 
-        return data_years    
-
+            return data_years    
+        else:
+            print(f"Either '{start}' or '{stop}' is incorrect.")
+            print("Available periods are :")
+            print(data.columns.values)
     
     @staticmethod
     def _get_relative_data_directory():
