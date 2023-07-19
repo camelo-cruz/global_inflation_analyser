@@ -154,7 +154,12 @@ class Preprocessor:
                 
         
     
+<<<<<<< HEAD
     def list_countries(self, intext="") -> list:
+=======
+    
+    def list_countries(self, intext=None):
+>>>>>>> c5d6acb3fe93dbd6238d3e25e1d8377e7049d887
         '''
         List all the countries available in a data file
         
