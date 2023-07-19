@@ -1,14 +1,31 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Tue Jul 18 22:32:03 2023
+This plotter class provides plotting functions using previous analysis and cleaning.
+It saves plots as images in results folder within repository
 
-@author: alejandracamelocruz
+
+Copyright (C) 2023 Kshitij Kar, Alejandra Camelo Cruz
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+contact email: camelocruz@uni-potsdam.de, kar@uni-potsdam.de
+
 """
 
 import os
 import sys
-import re
 import argparse
 from analysis import Analyser
 from matplotlib import pyplot as plt
@@ -75,8 +92,18 @@ def main(args):
     
     analyser = Analyser()
     
+    #type of analysis
     total = (args.analysis == 'total')
     product = (args.analysis == 'product')
+    
+    #type of plot
+    default = (args.graphic == 'all')
+    bar = (args.graphic == 'bar')
+    line = (args.graphic == 'line')
+    
+    #working directories
+    current_dir = os.path.dirname(__file__)
+    results_dir = os.path.abspath(os.path.join(current_dir, '..', 'results'))
     
     start,stop = args.time
     
@@ -112,17 +139,9 @@ def main(args):
         
     plotter = Plotter(inflation_data, title)
     
-    
-    
-    current_dir = os.path.dirname(__file__)
-    results_dir = os.path.abspath(os.path.join(current_dir, '..', 'results'))
-    
+    #output names
     bar_output = os.path.abspath(os.path.join(results_dir, f'{output}_bar.png'))
     line_output = os.path.abspath(os.path.join(results_dir, f'{output}_line.png'))
-    
-    default = (args.graphic == 'all')
-    bar = (args.graphic == 'bar')
-    line = (args.graphic == 'line')
     
     if default:
         bar_plot = plotter.plot_bar()
