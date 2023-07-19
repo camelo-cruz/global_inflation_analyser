@@ -113,7 +113,7 @@ def main(args):
             country = args.countries[0]
             inflation_data = analyser.all_products_inflation(country, start, stop)
             title = f'Inflation Rate in {country} for all products'
-            output = 'inflation_rate_all_products_{country}'
+            output = f'inflation_rate_all_products_{country}'
         except AssertionError:
             sys.exit('only one country is allowed if the total analysis is chosen')
         except IndexError:
