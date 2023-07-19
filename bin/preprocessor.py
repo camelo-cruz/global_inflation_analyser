@@ -25,7 +25,6 @@ contact email: camelocruz@uni-potsdam.de, kar@uni-potsdam.de
 """
 
 import os
-import sys
 import argparse
 import logging
 import pandas as pd
@@ -60,6 +59,7 @@ class Preprocessor:
         '''
         outlist = []
         for country in index_list:
+            country = country.capitalize()
             if country[0:5] == "China":
                 outlist.append(country.split(": ")[-1].replace(" ","_"))
             else:
@@ -154,12 +154,8 @@ class Preprocessor:
                 
         
     
-<<<<<<< HEAD
-    def list_countries(self, intext="") -> list:
-=======
     
-    def list_countries(self, intext=None):
->>>>>>> c5d6acb3fe93dbd6238d3e25e1d8377e7049d887
+    def list_countries(self, intext=""):
         '''
         List all the countries available in a data file
         
@@ -195,7 +191,7 @@ class Preprocessor:
               bcolors.ENDC)
             print(continent_list)
             
-            return list_countries
+            return [country.capitalize() for country in list_countries]
         
         elif intext in continent_list:
             temp_data = self._data_cleaning(
@@ -209,16 +205,16 @@ class Preprocessor:
                 for country in list_countries:
                     if country.startswith(intext[:-1]):
                         list_countries_specific.append(country)
-                return list_countries_specific
+                return [country.capitalize() for country in list_countries_specific]
             else:
                 list_countries_specific = []
                 for country in list_countries:
                     if intext in country:
                         list_countries_specific.append(country)
-                return list_countries_specific
+                return [country.capitalize() for country in list_countries_specific]
     
     
-    def by_country(self, product:str, country_list:list) -> pd.DataFrame:
+    def by_country(self, product:str, cl:list) -> pd.DataFrame:
         '''
         Returns data with selected countries.
 
@@ -235,15 +231,16 @@ class Preprocessor:
             returns Pandas dataframe with selected product and countries.
 
         '''
+        cl = [c.capitalize() for c in cl]
         logging.basicConfig(level=logging.INFO)
 
         # for index, country in enumerate(country_list):
         #     country_list[index] = country_list[index].capitalize()
-        logging.info(bcolors.OKGREEN+f"You have chosen the following countries : {country_list}"
+        logging.info(bcolors.OKGREEN+f"You have chosen the following countries : {cl}"
                      +bcolors.ENDC)
         
         data = self.by_product(product)
-        data_countries = data.loc[country_list]
+        data_countries = data.loc[cl]
     
         return data_countries
     
