@@ -25,6 +25,7 @@ contact email: camelocruz@uni-potsdam.de, kar@uni-potsdam.de
 """
 
 import os
+import sys
 import argparse
 import logging
 import pandas as pd
@@ -130,23 +131,30 @@ class Preprocessor:
 
         '''
 
-        logging.basicConfig(level=logging.INFO)
-        logging.info(bcolors.OKGREEN + f"You have chosen {product}"+
-              bcolors.ENDC)
-        if self.product in self.list_products():
-            self.data_file = os.path.abspath(
-                os.path.join(self.data_folder, f"Consumer_Price_Index_CPI_{product}.xlsx"))
-            data = self._data_cleaning(self.data_file)
-            
-            return data
-        
-        else:
-            print(f"{self.product} is not a valid option")
+        if product == "" or product is None:
+            print("No product provided. Here are your options :")
             print(self.list_products())
-            exit()
+
+        else:
+            logging.basicConfig(level=logging.INFO)
+            logging.info(bcolors.OKGREEN + f"You have chosen {product}"+
+                bcolors.ENDC)
+            if product in self.list_products():
+                self.data_file = os.path.abspath(
+                    os.path.join(self.data_folder, f"Consumer_Price_Index_CPI_{product}.xlsx"))
+                data = self._data_cleaning(self.data_file)
+                
+                return data
+            
+            else:
+                logging.basicConfig(level=logging.INFO)
+                logging.info(bcolors.WARNING + f"{product} is not a valid option."+
+                bcolors.ENDC)
+                print(self.list_products())
+                
+        
     
-    
-    def list_countries(self, intext=""):
+    def list_countries(self, intext="") -> list:
         '''
         List all the countries available in a data file
         
@@ -157,8 +165,8 @@ class Preprocessor:
 
         Returns
         -------
-        TYPE
-            list with specified countrie. If nothing or all is given, it returns 
+        List
+            list with specified countries. If nothing or all is given, it returns 
             all the countries.
 
         '''
@@ -175,12 +183,19 @@ class Preprocessor:
         intext = intext.capitalize()
         all_countries = (intext == "" or intext == 'All')
         
+
         if all_countries:
+            logging.basicConfig(level=logging.INFO)
+            logging.info(bcolors.HEADER + f"Additional options for regions :"+
+              bcolors.ENDC)
+            print(continent_list)
+            
             return list_countries
         
         elif intext in continent_list:
             temp_data = self._data_cleaning(
                 file_location="../data/product_group_CPI/"+intext.lower()+"_products_CPI/CPI_Education.csv")
+            
             return temp_data.index.to_list()
         
         else:
@@ -221,8 +236,7 @@ class Preprocessor:
         #     country_list[index] = country_list[index].capitalize()
         logging.info(bcolors.OKGREEN+f"You have chosen the following countries : {country_list}"
                      +bcolors.ENDC)
-        self.country_list = country_list
-        self.product = product
+        
         data = self.by_product(product)
         data_countries = data.loc[country_list]
     
