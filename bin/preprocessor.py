@@ -130,7 +130,7 @@ class Preprocessor:
             DESCRIPTION.
 
         '''
-
+        self.product = product
         if product == "" or product is None:
             print("No product provided. Here are your options :")
             print(self.list_products())
@@ -231,6 +231,8 @@ class Preprocessor:
             returns Pandas dataframe with selected product and countries.
 
         '''
+        self.product = product
+        self.cl = cl
         cl = [c.capitalize() for c in cl]
         logging.basicConfig(level=logging.INFO)
 
@@ -255,8 +257,8 @@ class Preprocessor:
             list with possible time entries.
 
         '''
-        
-        data = self.by_country("Education", self.list_countries(intext="all"));
+
+        data = self.by_country(self.product, self.cl);
         available_time = data.columns.values
 
         return available_time
