@@ -41,6 +41,23 @@ class Plotter:
         
 
     def plot_bar(self):
+        """
+        Plot a bar chart representing the inflation rates across different countries over months.
+    
+        This function takes the data stored in the object and plots a bar chart where each country's
+        inflation rate is shown for every month. The months are displayed on the x-axis, and the
+        inflation rates are displayed on the y-axis.
+    
+        Returns:
+            matplotlib.figure.Figure: The generated bar chart figure.
+    
+        Example usage:
+            Suppose you have a data object named 'data_obj' with the appropriate data and title set.
+            You can use the plot_bar() method as follows:
+    
+            fig = data_obj.plot_bar()
+            plt.show()
+        """
         data_t = self.data.transpose()
         
         x_ticks = data_t.index
@@ -70,6 +87,23 @@ class Plotter:
         
         
     def plot_line(self):
+        """
+        Plot a line chart representing the inflation rates across different countries over months.
+        
+        This function takes the data stored in the object and plots a line chart where each country's
+        inflation rate is shown as a line plot for every month. The months are displayed on the x-axis,
+        and the inflation rates are displayed on the y-axis.
+        
+        Returns:
+            matplotlib.figure.Figure: The generated line chart figure.
+        
+        Example usage:
+            Suppose you have a data object named 'data_obj' with the appropriate data and title set.
+            You can use the plot_line() method as follows:
+        
+            fig = data_obj.plot_line()
+            plt.show()
+        """
         data_t = self.data.transpose()
         
         x_ticks = data_t.columns
