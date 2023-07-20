@@ -123,8 +123,8 @@ class Plotter:
         
         return plt.gcf()
 
+
 def main(args):
-    
     
     analyser = Analyser()
     
@@ -157,7 +157,6 @@ def main(args):
     default = (args.graphic == 'all')
     bar = (args.graphic == 'bar')
     line = (args.graphic == 'line')
-    
     
     start,stop = args.time
     
