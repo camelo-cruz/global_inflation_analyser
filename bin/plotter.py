@@ -27,6 +27,8 @@ contact email: camelocruz@uni-potsdam.de, kar@uni-potsdam.de
 import os
 import sys
 import argparse
+import yaml
+import matplotlib as mpl
 from analysis import Analyser
 from matplotlib import pyplot as plt
 
@@ -92,6 +94,27 @@ def main(args):
     
     analyser = Analyser()
     
+    #working directories
+    current_dir = os.path.dirname(__file__)
+    results_dir = os.path.abspath(os.path.join(current_dir, '..', 'results'))
+    bin_dir = os.path.abspath(os.path.dirname(__file__))
+    
+    #set plot config if given
+    if args.plotparams:
+        try:
+            assert args.plotparams in ('bigplot', 'smallplot')
+            if args.plotparams == 'bigplot':
+                file = os.path.abspath(os.path.join(bin_dir, 'bigplot.yml'))
+            if args.plotparams == 'smallplot':
+                file = os.path.abspath(os.path.join(bin_dir, 'smallplot.yml'))
+            with open(file, 'r') as reader:
+                plot_params = yaml.load(reader, Loader=yaml.BaseLoader)
+            
+            for param, value in plot_params.items():
+                mpl.rcParams[param] = value
+        except AssertionError:
+            sys.exit('options for plotparams are only bigplot or smallplot')
+            
     #type of analysis
     total = (args.analysis == 'total')
     product = (args.analysis == 'product')
@@ -101,9 +124,6 @@ def main(args):
     bar = (args.graphic == 'bar')
     line = (args.graphic == 'line')
     
-    #working directories
-    current_dir = os.path.dirname(__file__)
-    results_dir = os.path.abspath(os.path.join(current_dir, '..', 'results'))
     
     start,stop = args.time
     
@@ -171,6 +191,8 @@ if __name__ == '__main__':
                         default='all')
     parser.add_argument('-a', '--analysis', type=str, help='type of analysis: total or product',
                         required=True)
+    parser.add_argument('--plotparams', type=str, help='Matplotlib parameters (YAML file) options: big',
+                        default=None)
     
     args = parser.parse_args()
     
