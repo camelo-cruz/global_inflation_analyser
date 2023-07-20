@@ -29,16 +29,17 @@ import sys
 import argparse
 from analysis import Analyser
 from matplotlib import pyplot as plt
+import pandas as pd
 
 
 class Plotter:
     
-    def __init__(self, data, title):
+    def __init__(self, data: pd.DataFrame, title):
         self.data = data
         self.title = title
         
 
-    def plot_bar(self):
+    def plot_bar(self) -> plt.figure:
         data_t = self.data.transpose()
         
         x_ticks = data_t.index
@@ -67,7 +68,7 @@ class Plotter:
         return plt.gcf()
         
         
-    def plot_line(self):
+    def plot_line(self) -> plt.figure:
         data_t = self.data.transpose()
         
         x_ticks = data_t.columns

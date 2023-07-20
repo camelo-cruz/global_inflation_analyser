@@ -57,6 +57,7 @@ class Analyser(Preprocessor):
         
         inflation_result = input_df.loc[:, ~input_df.columns.isin(time_span)]
         #print(inflation_result)
+        inflation_result = inflation_result.iloc[:,1:]
 
         return inflation_result
     
