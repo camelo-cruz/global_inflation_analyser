@@ -1,0 +1,4 @@
+#plot characteristics
+axes.labelsize : small
+xtick.labelsize : small
+ytick.labelsize : small
