@@ -11,9 +11,13 @@ from setuptools import setup
 setup(
       name = 'global_inflation_analyser',
       version = '0.1',
-      author = ['Kshitij Kar',
-                'Bruk Asrat Tsega',
-                'Leon Oparin',
-                'Alejandra Camelo Cruz'],
+      author = ['Alejandra Camelo Cruz',
+      'Bruk Asrat Tsega',
+      'Leon Oparin',
+      'Kshitij Kar'],
       packages = ['global_inflation_analyser'],
-      install_requires=[])
+      install_requires = [
+      'pyyaml',
+      'matplotlib',
+      'pandas',
+      'openpyxl'])
