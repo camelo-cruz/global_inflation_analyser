@@ -27,6 +27,8 @@ contact email: camelocruz@uni-potsdam.de, kar@uni-potsdam.de
 import os
 import sys
 import argparse
+import yaml
+import matplotlib as mpl
 from analysis import Analyser
 from matplotlib import pyplot as plt
 
@@ -39,6 +41,23 @@ class Plotter:
         
 
     def plot_bar(self):
+        """
+        Plot a bar chart representing the inflation rates across different countries over months.
+    
+        This function takes the data stored in the object and plots a bar chart where each country's
+        inflation rate is shown for every month. The months are displayed on the x-axis, and the
+        inflation rates are displayed on the y-axis.
+    
+        Returns:
+            matplotlib.figure.Figure: The generated bar chart figure.
+    
+        Example usage:
+            Suppose you have a data object named 'data_obj' with the appropriate data and title set.
+            You can use the plot_bar() method as follows:
+    
+            fig = data_obj.plot_bar()
+            plt.show()
+        """
         data_t = self.data.transpose()
         
         x_ticks = data_t.index
@@ -68,6 +87,23 @@ class Plotter:
         
         
     def plot_line(self):
+        """
+        Plot a line chart representing the inflation rates across different countries over months.
+        
+        This function takes the data stored in the object and plots a line chart where each country's
+        inflation rate is shown as a line plot for every month. The months are displayed on the x-axis,
+        and the inflation rates are displayed on the y-axis.
+        
+        Returns:
+            matplotlib.figure.Figure: The generated line chart figure.
+        
+        Example usage:
+            Suppose you have a data object named 'data_obj' with the appropriate data and title set.
+            You can use the plot_line() method as follows:
+        
+            fig = data_obj.plot_line()
+            plt.show()
+        """
         data_t = self.data.transpose()
         
         x_ticks = data_t.columns
@@ -87,11 +123,32 @@ class Plotter:
         
         return plt.gcf()
 
+
 def main(args):
-    
     
     analyser = Analyser()
     
+    #working directories
+    current_dir = os.path.dirname(__file__)
+    results_dir = os.path.abspath(os.path.join(current_dir, '..', 'results'))
+    bin_dir = os.path.abspath(os.path.dirname(__file__))
+    
+    #set plot config if given
+    if args.plotparams:
+        try:
+            assert args.plotparams in ('bigplot', 'smallplot')
+            if args.plotparams == 'bigplot':
+                file = os.path.abspath(os.path.join(bin_dir, 'bigplot.yml'))
+            if args.plotparams == 'smallplot':
+                file = os.path.abspath(os.path.join(bin_dir, 'smallplot.yml'))
+            with open(file, 'r') as reader:
+                plot_params = yaml.load(reader, Loader=yaml.BaseLoader)
+            
+            for param, value in plot_params.items():
+                mpl.rcParams[param] = value
+        except AssertionError:
+            sys.exit('options for plotparams are only bigplot or smallplot')
+            
     #type of analysis
     total = (args.analysis == 'total')
     product = (args.analysis == 'product')
@@ -100,10 +157,6 @@ def main(args):
     default = (args.graphic == 'all')
     bar = (args.graphic == 'bar')
     line = (args.graphic == 'line')
-    
-    #working directories
-    current_dir = os.path.dirname(__file__)
-    results_dir = os.path.abspath(os.path.join(current_dir, '..', 'results'))
     
     start,stop = args.time
     
@@ -171,6 +224,8 @@ if __name__ == '__main__':
                         default='all')
     parser.add_argument('-a', '--analysis', type=str, help='type of analysis: total or product',
                         required=True)
+    parser.add_argument('--plotparams', type=str, help='Matplotlib parameters (YAML file) options: big',
+                        default=None)
     
     args = parser.parse_args()
     
