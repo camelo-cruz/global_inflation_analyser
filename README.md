@@ -10,7 +10,8 @@ With the dataset contained data about consumer price index for group of products
       4. In which year was high inflation recorded?
       5. What is the inflation rate of a specific products or services globally?
       6. What is the inflation rate of a specific products or services group (specific Country)?
-      7. 
+
+## Installation
 
 ## Usage Guides
 
@@ -18,15 +19,15 @@ The library usage...
 
 ## Features
 
-The Features...
+- 
 
 ## Documentation
 
-Please see [Global Inflation Analyzer documentation](#) for more information.
+Please see [Global Inflation Analyz er documentation](#) for more information. 
 
 ## Code of conduct
 
-Our code of conduct can be found in the code of conduct md file in the respository...
+Our code of conduct can be found in the code of [CONDUCT.md](./CONDUCT.m d) file in the global_inflation_analyser repository.
 
 ## Contribution Guidelines
 
@@ -34,15 +35,17 @@ Contributions are always welcome, and to do so, Please make sure your pull reque
 
 ## License
 
-Distributed under the **??? License**. See [LICENSE.txt](./LICENCE.txt) for more information.
+Distributed under the **GNU GENERAL PUBLIC LICENSE**. See [LICENSE.txt](./LICENCE.txt) for more information.
 
 ## Contact Information
 
 If you have any question regarding this library, please feel free to get in touch with us via the following methods:
 
-+ E-Mail: [email@gmail.com](mailto:email@gmail.com)
-+ Linkedin: [LinkLinkedin](https://www.linkedin.com/in/b---61/)
++ E-Mail: [leon.oparin@uni-potsdam.de](mailto:leon.oparin@uni-potsdam.de),
+          [leon.oparin@uni-potsdam.de](mailto:leon.oparin@uni-potsdam.de),
+          [leon.oparin@uni-potsdam.de](mailto:leon.oparin@uni-potsdam.de),
+          [leon.oparin@uni-potsdam.de](mailto:leon.oparin@uni-potsdam.de)
 
 ## Acknowledgement
 
-We would like to ...
+We would like to thank the whole Group and the University of Potsdam for the Opportunity to work on such a project and give us the needed knowledge in order to make such a project.
