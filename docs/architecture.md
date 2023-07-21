@@ -12,8 +12,6 @@ This project is named as Global Inflation Analyzer (GIA). It is a python library
         height=120% >
 </div>
 
-$\hspace{10cm}$
-
 The image shown above represents a simple architecture diagram depicting three classes: `Preprocessor`, `Analyser`, and `Plotter`. Each class has its attributes and methods, and there is a relationship between the `Analyser` and `Preprocessor` classes.
 
 1. **Preprocessor Class**:
@@ -31,8 +29,8 @@ The image shown above represents a simple architecture diagram depicting three c
      - `list_years()`: Lists all available years from the data for the selected product and countries.
      - `list_countries(intext: str = "")`: Lists all available countries from the data, optionally filtered by a specific string.
      - `by_product(product: str)`: Returns the DataFrame for the selected product.
-     - `by_country(product: str, country_list: list)`: Returns the DataFrame with data for the selected product and countries.
-     - `by_year(product: str, country_list: list, start, stop)`: Returns the DataFrame with data for the selected product, countries, and specified time range.
+     - `by_country(product: str, cl: list)`: Returns the DataFrame with data for the selected product and countries.
+     - `by_year(product: str, cl: list, start, stop)`: Returns the DataFrame with data for the selected product, countries, and specified time range.
 
 2. **Analyser Class**:
    - Methods:
