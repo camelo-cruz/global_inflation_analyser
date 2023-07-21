@@ -1,18 +1,32 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Inflation Analyzer class.
+This Analysis class calculates inflation rate of based on the preprocessed data, 
+and also analyzes all products inflation rate of a country.  
 
-Created on Sat Jul 08 21:15:48 2023
+Copyright (C) 2023
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+contact email: tsega@uni-potsdam.de, camelocruz@uni-potsdam.de, kar@uni-potsdam.de, leon.oparin@uni-potsdam.de
 
 @author: Bruk Asrat
+
 """
 
-# import sys
-# import os
 import argparse
 import pandas as pd
-# import numpy as np
 from preprocessor import Preprocessor
 
 
@@ -23,12 +37,10 @@ class Analyser(Preprocessor):
         self.country_list = country_list
         self.start_time = start_time
         self.stop_time = stop_time
-    
         self.data = self.by_year(product,country_list,start_time,stop_time)
-        # print("From set_datafile\n")
-        # print(self.data.head(5))
 
         return self.data
+
 
     def inflation_calculator(self,input_df:pd.DataFrame) -> pd.DataFrame:
         """
@@ -45,7 +57,6 @@ class Analyser(Preprocessor):
             returns calculated inflation rate
 
         """
-        
         prev_cpi = 100
         time_span = input_df.columns.values.tolist()
         for time in time_span:
@@ -54,13 +65,13 @@ class Analyser(Preprocessor):
             val = round(((input_df[time]-prev_cpi) / prev_cpi)* 100 , 1)
             prev_cpi = input_df[str(time)]
             input_df[infl] = val
-        
+
         inflation_result = input_df.loc[:, ~input_df.columns.isin(time_span)]
-        #print(inflation_result)
         inflation_result = inflation_result.iloc[:,1:]
 
         return inflation_result
-    
+
+
     def all_products_inflation(self,nation:str,start_time:str,stop_time:str) -> pd.DataFrame:
         """
         This function merge all products inflation rate of a given country for 
@@ -83,23 +94,20 @@ class Analyser(Preprocessor):
         """
         product_list = self.list_products()
         l_nation = [nation]
-
         resultframe = pd.DataFrame()
-        
+
         for product in product_list:             
             result = self.set_datafile(product,l_nation,start_time,stop_time)
-            #result2 = pd.append(result,ignore_index=True,sort=False)
-            
             resultframe = resultframe.append(result,ignore_index=True,sort=False)
-        
+
         for i,product in enumerate(product_list):                
             resultframe = resultframe.rename(index={i: product_list[i]})
-            
-        print (resultframe.index.values)
-        
-        return resultframe
 
-    
+        products_inf = self.inflation_calculator(resultframe)
+
+        return products_inf
+
+
 def main(args):
     print(args)
     analyser = Analyser()
@@ -148,7 +156,6 @@ if __name__ == "__main__":
             print("Missing arguement : --countries is required")
             print(analyser.list_countries())
         else:
-            
             if not args.time:
                 analyser.by_country(args.product,args.countries)
                 print("Missing arguement : --time is required")
@@ -156,4 +163,3 @@ if __name__ == "__main__":
             else:
                 start,stop = args.time
                 data = analyser.set_datafile(args.product,args.countries,start,stop)
-                
