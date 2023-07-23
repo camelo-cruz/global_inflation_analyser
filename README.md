@@ -134,9 +134,65 @@ repository.
 Contributions are always welcome, if you want to find out how to contribute to the Project read the 
 [CONTRIBUTING.md](./CONTRIBUTING.md).
 
-## License
+# License
 
-Distributed under the **GNU GENERAL PUBLIC LICENSE**. See [LICENSE.txt](./LICENSE.txt) for more information.
+> GPL-3.0-or-later
+
+	Copyright (C) 2023 Alejandra Camelo Cruz, Kshitij Kar, Bruk Asrat Tsega, Leon Oparin
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or 
+    any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+   
+Full license text can be recovered [here](LICENSE.txt)
+
+# Citation
+	cff-version: 1.2.0
+	title: Global_Inflation_Analyser
+	message: >-
+	  If you use this software, please cite it using the
+	  metadata from this file.
+	type: software
+	authors:
+	  - given-names: Kshitij
+	    family-names: Kar
+	    email: kar@uni-potsdam.de
+	    affiliation: Universität Potsdam
+	  - given-names: Camelo Cruz
+	    family-names: Alejandra
+	    email: camelocruz@uni-potsdam.de
+	    affiliation: Universität Potsdam
+	  - given-names: Leon
+	    family-names: Oparin
+	    email: leon.oparin@uni-potsdam.de
+	    affiliation: Universität Potsdam
+	  - given-names: Bruk Asrat
+	    family-names: Tsega
+	    email: tsega@uni-potsdam.de
+	    affiliation: Universität Potsdam
+	abstract: >-
+	  This project is named as Global Inflation Analyzer (GIA).
+	  It is a python library, and written to give a
+	  comprehensive analysis of inflation rate. The library can
+	  be used to perform analysis based on a given dataset with
+	  the classification standard of classification of
+	  individual consumption by purpose (COICOP 2-5-digit
+	  hierarchy).
+	keywords:
+	  - Consumer Price Index
+	  - Inflation Rate
+	license: GPL-3.0-or-later
+	
+The information for citation can be used from the [.cff file](CITATION.cff) in the root folder
 
 ## Contact Information
 
