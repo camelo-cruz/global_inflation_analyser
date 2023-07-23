@@ -24,7 +24,7 @@ cd global_inflation_analyser
 
 After you downloaded our repository, make sure you have Python installed and all the dependencies needed for the project.
 
->Make sure you are in the folder containing the software. Check it running pwd in terminal. it should end in global\_inflation\_analyser
+> Make sure you are in the folder containing the software. Check it running pwd in terminal. it should end in global\_inflation\_analyser
 
 If you are using conda, you can download all the dependencies, while being in the root folder, with the following command:
 
@@ -37,7 +37,7 @@ Otherwhise, for installing it with pip, run:
 pip install -e .
 ```
 
-## Usage Guides
+## Usage Guide
 
 After you have moved yourself in the repository where you saved the project. You will notice that you have three classes 
 provided to you: preprocessor, analysis and the plotter class. With the Preprocessor class the provided data will be 
@@ -47,62 +47,78 @@ with the previous analysed data.
 Generally if you want to use the Project we would recommend to use the provided Jupyter Notebook and to run all 
 the cells in their given order. While running the cells you will notice you need to choose your data set and the years 
 you want. After you executed the plotting part, your results will be saved in the results directory where you can look 
-up all the plots. 
+up all the plots.
 
-The second option that you have is to run the separate python files one after another. It means you would run the 
-preprocessor.py. Please be aware you need to be in the directory where the code actually is. So if you are for 
-example in global_inflation_analyser:
+Although all the classes allow independent use from the terminal, the plotter class allows to use all of them and product a visual output in the results folder
 
-```
-# Moving to the Directory
-    cd global_inflation_analyser
+# use from terminal 
 
-# Displaying the help
-    python preprocessor.py -h
+### Plotter with analysis and preprocessing
 
-# Example: Specify product name
-    python preprocessor.py -p Education
+The plotter function takes both the analyser and the preprocessor and serves as the main entry point for the command-line interface of the Global Inflation Analyser. It analyzes inflation data for different countries and products and generates bar and line charts based on the analysis results. This function takes command-line arguments to specify the analysis type, countries, time period, and plot preferences.
 
-# Example: Specify product name and list of countries
-    python preprocessor.py -p Education -c Germany France Italy
+### Use 
 
-# Example: Specify product name, list of countries, and time period
-    python preprocessor.py -p Education -c Germany France Italy -t Jan_2010 Dec_2012
-```
-
-After that you would run the analysis.py. 
+while in root:
 
 ```
-# Displaying the help
-    python analysis.py -h
-    
-# Example:     
-    python analysis.py -p Education -c Germany France Italy -t Jan_2023 Dec_2023
+python global_inflation_analyser/plotter.py [-h] [-p PRODUCT] -c COUNTRIES COUNTRIES -t START STOP [-g GRAPHIC] -a ANALYSIS [--plotparams PLOTPARAMS]
+```
+### Arguments
+
+- `-h`, `--help`: Show help message and exit.
+- `-p PRODUCT`: Product name (optional).
+- `-c COUNTRIES`: List of countries for analysis (required).
+- `-t START STOP`: Start and stop months for analysis (required, format: "MMM_YYYY").
+- `-g GRAPHIC`: Type of plot: "line" for line plot, "bar" for bar plot, "all" for both (default).
+- `-a ANALYSIS`: Type of analysis: "total" for total analysis, "product" for product-specific analysis (required).
+- `--plotparams PLOTPARAMS`: Matplotlib parameters options: "bigplot" or "smallplot" (optional).
+
+### Description
+
+This function performs inflation analysis for either total or product-specific scenarios based on the user's input. It generates bar and/or line charts showing inflation rates across different countries over a specified time period.
+
+### Analysis Types
+
+- **Total Analysis**: Provides inflation rates for a single country across all products.
+- **Product-Specific Analysis**: Provides inflation rates for a specific product across multiple countries.
+
+### Plot Types
+
+- **Line Plot**: Displays inflation rates as a line plot for each country over time.
+- **Bar Plot**: Shows inflation rates as a bar chart for each country over time.
+- **All Plots**: Generates both line and bar charts for the selected analysis.
+
+### Example Usage
+
+To run the Global Inflation Analyser for total analysis, plotting both bar and line charts:
+
+```
+python global_inflation_analyser/plotter.py -c Country1 Country2 -t Jan_2021 Dec_2022 -a total
 ```
 
-And in the End the plotter.py.
+To run the Global Inflation Analyser for product-specific analysis, plotting only line charts:
 
-``` 
-# Displaing the help 
-    python plotter.py
+```
+python global_inflation_analyser/plotter.py -p ProductName -c Country1 Country2 -t Jan_2021 Dec_2022 -g line -a product
+```
+To apply custom plot settings for big plots:
 
-# Example:     
-    python plotter.py -p "productname" -c "country1" "country2" -t "Jan_2021" "Dec_2022" -a "product"
-
+```
+python global_inflation_analyser/plotter.py -c Country1 Country2 -t Jan_2021 Dec_2022 -a total --plotparams bigplot
 ```
 
 
-After that you should be again able to look up the plots in the results directory. 
 
 ## Features
 
 - Comparison Table
 - Line Plot Diagramm
 - Bar Plot Diagramm
-- Boxplot Diagramm
 - Dataset can be adjusted 
   - Years adjustable
   - Product adjustable
+  - Countries adjustable
 
 ## Documentation
 
