@@ -10,11 +10,6 @@ Welcome to global inflation analyser's documentation!
    :caption: Contents:
 
 
-Readme File
-===========
-
-.. include:: ../README.rst
-
 
 Indices and tables
 ==================
@@ -22,3 +17,9 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+
+Readme File
+===========
+
+.. include:: ../README.rst
