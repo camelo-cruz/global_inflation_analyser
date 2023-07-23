@@ -79,7 +79,9 @@ After that you would run the analysis.py.
 # Example:     
     python analysis.py -p Education -c Germany France Italy -t Jan_2023 Dec_2023
 ```
+
 And in the End the plotter.py.
+
 ``` 
 # Displaing the help 
     python plotter.py
@@ -122,12 +124,12 @@ Distributed under the **GNU GENERAL PUBLIC LICENSE**. See [LICENSE.txt](./LICENS
 
 ## Contact Information
 
-If you have any question regarding this library, please feel free to get in touch with us via the following methods:
+If you have any question regarding this library, please feel free to get in touch with us:
 
-+ E-Mail: [leon.oparin@uni-potsdam.de](mailto:leon.oparin@uni-potsdam.de),
-          [tsega@uni-potsdam.de](mailto:tsega@uni-potsdam.de),
-          [kar@uni-potsdam.de](mailto:kar@uni-potsdam.de),
-          [Camelocruz@uni-potsdam.de](mailto:Camelocruz@uni-potsdam.de)
+- [leon.oparin@uni-potsdam.de](mailto:leon.oparin@uni-potsdam.de)
+- [tsega@uni-potsdam.de](mailto:tsega@uni-potsdam.de)
+- [kar@uni-potsdam.de](mailto:kar@uni-potsdam.de)
+- [camelocruz@uni-potsdam.de](mailto:Camelocruz@uni-potsdam.de)
 
 ## Acknowledgement
 
