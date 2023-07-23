@@ -174,8 +174,10 @@ def main(args):
     default = args.graphic == 'all'
     bar = args.graphic == 'bar'
     line = args.graphic == 'line'
-
+    
     start,stop = args.time
+    start = start.capitalize()
+    stop = stop.capitalize()
 
     if total:
         try:
@@ -187,7 +189,9 @@ def main(args):
         except AssertionError:
             sys.exit('only one country is allowed if the total analysis is chosen')
         except IndexError:
-            sys.exit('the time is not correct. It must be, for example, like: Jan_2021 Dec_2022')
+            sys.exit('the time is not correct. It must be, for example: Jan_2021 Dec_2022')
+        except AttributeError:
+            sys.exit('Time not written correctly')
 
     if product:
         try:
@@ -197,7 +201,6 @@ def main(args):
             analyser.by_country(args.product,args.countries)
             data = analyser.set_datafile(args.product,args.countries,start,stop)
             inflation_data = analyser.inflation_calculator(data)
-            inflation_data = analyser.inflation_calculator(data)
             title = f'Inflation Rate across Countries for {args.product}'
             output = f'inflation_rate_{args.product}'
         except AssertionError:
@@ -206,6 +209,8 @@ def main(args):
             sys.exit(f'a country given is not in the list {e}')
         except IndexError:
             sys.exit('the time is not correct. It must be, for example, like: Jan_2021 Dec_2022')
+        except AttributeError:
+            sys.exit('Time not written correctly')
 
     plotter = Plotter(inflation_data, title)
 
