@@ -1,0 +1,272 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>preprocessor module &#8212; global inflation analyser 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-preprocessor">
+<span id="preprocessor-module"></span><h1>preprocessor module<a class="headerlink" href="#module-preprocessor" title="Permalink to this headline">¶</a></h1>
+<p>This Preprocessor class provides cleaning and filetring of the data provided 
+in the data folder under root folder</p>
+<p>Copyright (C) 2023 Kshitij Kar, Alejandra Camelo Cruz</p>
+<blockquote>
+<div><p>This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+any later version.</p>
+<p>This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.</p>
+<p>You should have received a copy of the GNU General Public License
+along with this program.  If not, see &lt;<a class="reference external" href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>&gt;.</p>
+</div></blockquote>
+<p>contact email: <a class="reference external" href="mailto:camelocruz&#37;&#52;&#48;uni-potsdam&#46;de">camelocruz<span>&#64;</span>uni-potsdam<span>&#46;</span>de</a>, <a class="reference external" href="mailto:kar&#37;&#52;&#48;uni-potsdam&#46;de">kar<span>&#64;</span>uni-potsdam<span>&#46;</span>de</a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="preprocessor.Preprocessor">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">preprocessor.</span></span><span class="sig-name descname"><span class="pre">Preprocessor</span></span><a class="headerlink" href="#preprocessor.Preprocessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Preprocessor for data cleaning and data filtering</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="preprocessor.Preprocessor.by_country">
+<span class="sig-name descname"><span class="pre">by_country</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">product</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cl</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.core.frame.DataFrame</span></span></span><a class="headerlink" href="#preprocessor.Preprocessor.by_country" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns data with selected countries.</p>
+<dl class="simple">
+<dt>product<span class="classifier">str</span></dt><dd><p>product to be filtered.</p>
+</dd>
+<dt>country_list<span class="classifier">list</span></dt><dd><p>countries to be filtered.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>data_countries<span class="classifier">Pandas dataframe</span></dt><dd><p>returns Pandas dataframe with selected product and countries.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preprocessor.Preprocessor.by_product">
+<span class="sig-name descname"><span class="pre">by_product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">product</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.core.frame.DataFrame</span></span></span><a class="headerlink" href="#preprocessor.Preprocessor.by_product" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function asks the user to input the product they wish to analyse 
+and returns the data set with only that product.</p>
+<dl class="simple">
+<dt>product<span class="classifier">TYPE</span></dt><dd><p>DESCRIPTION.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>data<span class="classifier">TYPE</span></dt><dd><p>DESCRIPTION.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preprocessor.Preprocessor.by_year">
+<span class="sig-name descname"><span class="pre">by_year</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">product</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cl</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.core.frame.DataFrame</span></span></span><a class="headerlink" href="#preprocessor.Preprocessor.by_year" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns data with selected years.</p>
+<dl class="simple">
+<dt>product<span class="classifier">str</span></dt><dd><p>DESCRIPTION.</p>
+</dd>
+<dt>country_list<span class="classifier">list</span></dt><dd><p>DESCRIPTION.</p>
+</dd>
+<dt>start<span class="classifier">TYPE</span></dt><dd><p>DESCRIPTION.</p>
+</dd>
+<dt>stop<span class="classifier">TYPE</span></dt><dd><p>DESCRIPTION.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>data_years<span class="classifier">TYPE</span></dt><dd><p>DESCRIPTION.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preprocessor.Preprocessor.list_countries">
+<span class="sig-name descname"><span class="pre">list_countries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">intext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#preprocessor.Preprocessor.list_countries" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all the countries available in a data file</p>
+<dl class="simple">
+<dt>intext<span class="classifier">TYPE, optional</span></dt><dd><p>return list of countries matching intext string. The default is “”.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>List</dt><dd><p>list with specified countries. If nothing or all is given, it returns 
+all the countries.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preprocessor.Preprocessor.list_products">
+<span class="sig-name descname"><span class="pre">list_products</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#preprocessor.Preprocessor.list_products" title="Permalink to this definition">¶</a></dt>
+<dd><p>List products available in a data file</p>
+<dl class="simple">
+<dt>list</dt><dd><p>list with possible product entries.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="preprocessor.Preprocessor.list_years">
+<span class="sig-name descname"><span class="pre">list_years</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#preprocessor.Preprocessor.list_years" title="Permalink to this definition">¶</a></dt>
+<dd><p>List years available in a data file</p>
+<dl class="simple">
+<dt>available_time<span class="classifier">list</span></dt><dd><p>list with possible time entries.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="preprocessor.bcolors">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">preprocessor.</span></span><span class="sig-name descname"><span class="pre">bcolors</span></span><a class="headerlink" href="#preprocessor.bcolors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="preprocessor.bcolors.BOLD">
+<span class="sig-name descname"><span class="pre">BOLD</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'\x1b[1m'</span></em><a class="headerlink" href="#preprocessor.bcolors.BOLD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="preprocessor.bcolors.ENDC">
+<span class="sig-name descname"><span class="pre">ENDC</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'\x1b[0m'</span></em><a class="headerlink" href="#preprocessor.bcolors.ENDC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="preprocessor.bcolors.FAIL">
+<span class="sig-name descname"><span class="pre">FAIL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'\x1b[91m'</span></em><a class="headerlink" href="#preprocessor.bcolors.FAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="preprocessor.bcolors.HEADER">
+<span class="sig-name descname"><span class="pre">HEADER</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'\x1b[95m'</span></em><a class="headerlink" href="#preprocessor.bcolors.HEADER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="preprocessor.bcolors.OKBLUE">
+<span class="sig-name descname"><span class="pre">OKBLUE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'\x1b[94m'</span></em><a class="headerlink" href="#preprocessor.bcolors.OKBLUE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="preprocessor.bcolors.OKCYAN">
+<span class="sig-name descname"><span class="pre">OKCYAN</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'\x1b[96m'</span></em><a class="headerlink" href="#preprocessor.bcolors.OKCYAN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="preprocessor.bcolors.OKGREEN">
+<span class="sig-name descname"><span class="pre">OKGREEN</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'\x1b[92m'</span></em><a class="headerlink" href="#preprocessor.bcolors.OKGREEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="preprocessor.bcolors.UNDERLINE">
+<span class="sig-name descname"><span class="pre">UNDERLINE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'\x1b[4m'</span></em><a class="headerlink" href="#preprocessor.bcolors.UNDERLINE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="preprocessor.bcolors.WARNING">
+<span class="sig-name descname"><span class="pre">WARNING</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'\x1b[93m'</span></em><a class="headerlink" href="#preprocessor.bcolors.WARNING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="preprocessor.main">
+<span class="sig-prename descclassname"><span class="pre">preprocessor.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preprocessor.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>The main entry function from the command line interface.</p>
+<dl class="simple">
+<dt>args<span class="classifier">TYPE</span></dt><dd><p>Accepts arguments product,country list, period of time from command line.</p>
+</dd>
+</dl>
+<p>None.</p>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">global inflation analyser</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Alejandra Camelo Cruz, Bruk Asrat Tsega, Leon Oparin, kshitij Kar.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/preprocessor.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
