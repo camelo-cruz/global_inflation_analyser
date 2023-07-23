@@ -10,7 +10,6 @@ Each of these functionalities are addressed following Object Oriented Programmin
 
 # Functional Requirements
 
-
 ## Preprocessor
 
 ### User stories
