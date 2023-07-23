@@ -21,6 +21,21 @@ Copyright (C) 2023
 
 contact email: tsega@uni-potsdam.de, camelocruz@uni-potsdam.de, kar@uni-potsdam.de, leon.oparin@uni-potsdam.de
 
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+contact email: tsega@uni-potsdam.de, camelocruz@uni-potsdam.de, 
+                kar@uni-potsdam.de, leon.oparin@uni-potsdam.de
 @author: Bruk Asrat
 
 """
@@ -29,10 +44,33 @@ import argparse
 import pandas as pd
 from preprocessor import Preprocessor
 
-
 class Analyser(Preprocessor):
+    """
+    Class Analyser calculates inflation rate and analyzes all products inflation
+    rate of a country.
+    """
+    def set_datafile(self,product:str,country_list:list,start_time:str,
+                     stop_time:str) -> pd.DataFrame:
+        """
+        Data setter for the Analyzer class.
 
-    def set_datafile(self,product:str,country_list:list,start_time:str,stop_time:str) -> pd.DataFrame:
+        Parameters
+        ----------
+        product : str
+            A list of products.
+        country_list : list
+            A list of countries.
+        start_time : str
+            The first month or reference date to calculate inflation rate.
+        stop_time : str
+            The last month of the date range.
+
+        Returns
+        -------
+        TYPE
+            Return a dataframe.
+
+        """
         self.product = product
         self.country_list = country_list
         self.start_time = start_time
@@ -109,12 +147,20 @@ class Analyser(Preprocessor):
 
 
 def main(args):
-    print(args)
+    """
+    The main entry function from command line interface.
+
+    Parameters
+    ----------
+    args : TYPE
+        Accepts arguments product,country list, period of time from command line.
+
+    Returns
+    -------
+    None.
+
+    """
     analyser = Analyser()
-    parser = argparse.ArgumentParser(description='Command line inputs')
-    parser.add_argument('--product', type=str, help='Product name')
-    parser.add_argument('--countries', nargs='+', help='List of countries')
-    parser.add_argument('--time', type=str, nargs=2, help='Start, Stop')
 
     args = parser.parse_args()
 
@@ -127,7 +173,6 @@ def main(args):
             print("Missing arguement : --countries is required")
             print(analyser.list_countries())
         else:
-            
             if not args.time:
                 analyser.by_country(args.product,args.countries)
                 print("Missing arguement : --time is required")
@@ -135,7 +180,7 @@ def main(args):
             else:
                 start,stop = args.time
                 data = analyser.by_year(args.product,args.countries,start,stop)
-                analyser.display_head(data)
+                print(data)
 
 
 if __name__ == "__main__":
