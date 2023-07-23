@@ -15,40 +15,45 @@ prpr = Preprocessor()
 cwd = os.getcwd()
 data_dir = os.path.abspath(os.path.join(cwd, os.pardir, 'data'))
 
-
-def get_correct_country_list():
-    num_countries_list = []
-    for file in os.listdir(data_dir):
-         filename = os.fsdecode(file)
-         if filename.endswith('.xlsx'):
-             filename = os.path.join('..', 'data', filename)
-             file = pd.read_excel(filename)
-             num_countries = len(file.iloc[:, 0])
-             if num_countries_list != []:
-                 if num_countries >= num_countries_list[-1]:
-                      file_to_test = file
-             num_countries_list.append(num_countries)
-
-    
-    
-    correct_country_list = prpr.index_cleaning(list(file_to_test.iloc[:, 0]))
-
-    
-    return correct_country_list
-
-
 def test_product():
     
     correct_product_list = set(['Alcoholic_Beverages', 'Clothing', 'Communication',
                                'Education', 'Food', 'Health', 'Housing_Energy', 'Misc_Goods_Services',
                                'Recreation_Culture', 'Restaurants_Hotels', 'Transport'])
-    
+
     test_product_list = set(prpr.list_products())
-    
+
     assert correct_product_list == test_product_list
+
+
+def test_get_cpi_data_by_product():
+    expected_result=(157,281)
+    actual_result = prpr.by_product('Education')
+    assert actual_result.shape == expected_result
+
+
+def test_get_countries_cpi_data_by_year():
+    expected_cpi_result = pd.DataFrame.from_dict({
+    '': ['France','Germany'],
+    'Jan_2022': [110.41,106.50],
+    'Feb_2022': [110.82,107.60],
+    'Mar_2022': [111.87,108.50],
+    'Apr_2022': [113.61,112.00],
+    'May_2022': [114.75,114.00]
+    }).set_index('')
     
-def test_country():
-    correct_country_list = get_correct_country_list()
-    test_country_list = prpr.list_countries('all')
+    actual_result = prpr.by_year('Food',['France','Germany'], 'Jan_2022', 'Jun_2022')
+    assert actual_result.equals(expected_cpi_result)
     
-    assert correct_country_list == test_country_list
+    
+def test_get_cpi_data_by_country():
+    expected_cpi_result_shape = (3,281)
+    actual_result = prpr.by_country('Education',['France','Ethiopia','Germany'])
+    assert actual_result.shape == expected_cpi_result_shape
+    
+
+    
+
+
+
+   				
