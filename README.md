@@ -13,20 +13,33 @@ With the dataset contained data about consumer price index for group of products
 
 ## Installation
 
-Install Global_Inflation_Analyser with npm
+### Repository
+
+Install Global\_Inflation\_Analyser and go to root folder:
+
 ```
-npm install Global_Inflation_Analyser
-cd Global_Inflation_Analyser
+git clone https://gitup.uni-potsdam.de/kar/global_inflation_analyser
+cd global_inflation_analyser
 ```
 
-After you installed the Project, make sure you have Python installed and also install Pandas. You can do this 
-by visiting https://www.python.org and reading up on everything you need to know to get it up and running and 
-for Pandas please visit https://pypi.org/project/pandas/. Also make sure if you don't have Numpy or argparse to install
-it with the following commands:
+After you downloaded our repository, make sure you have Python installed and all the dependencies needed for the project.
+
+>Make sure you are in the folder containing the software. Check it running pwd in terminal. it should end in global\_inflation\_analyser
+
+If you are using conda, you can download all the dependencies, while being in the root folder, with the following command:
+
 ```
-pip install numpy
-pip install argparse
+conda install -e .
 ```
+Otherwhise, for installing it with pip, run:
+
+```
+pip install -e .
+```
+
+### Package
+
+If you want to use it as a python package, install it with conda, or pip, using the following commands.
 
 ## Usage Guides
 
@@ -43,9 +56,10 @@ up all the plots.
 The second option that you have is to run the separate python files one after another. It means you would run the 
 preprocessor.py. Please be aware you need to be in the directory where the code actually is. So if you are for 
 example in global_inflation_analyser:
+
 ```
 # Moving to the Directory
-    cd bin
+    cd global_inflation_analyser
 
 # Displaying the help
     python preprocessor.py -h
@@ -59,7 +73,9 @@ example in global_inflation_analyser:
 # Example: Specify product name, list of countries, and time period
     python preprocessor.py -p Education -c Germany France Italy -t Jan_2010 Dec_2012
 ```
+
 After that you would run the analysis.py. 
+
 ```
 # Displaying the help
     python analysis.py -h
@@ -73,8 +89,11 @@ And in the End the plotter.py.
     python plotter.py
 
 # Example:     
-    python plotter.py -p "Produktname" -c "Land1" "Land2" -t "Jan_2021" "Dez_2022" -g "all" -a "product"
+    python plotter.py -p "productname" -c "country1" "country2" -t "Jan_2021" "Dec_2022" -a "product"
+
 ```
+
+
 After that you should be again able to look up the plots in the results directory. 
 
 ## Features
