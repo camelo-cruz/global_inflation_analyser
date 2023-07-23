@@ -391,10 +391,6 @@ plt.show()
 
 In these examples, we demonstrate how to use the `Plotter` class to plot bar charts and line charts for inflation rate data. The `plt.show()` function is used to display the generated charts in the Jupyter Notebook.
 
-## <u>Testing Strategy</u>
-
-
-
 ## <u>Future Improvements</u>
 
 In the future, we could make it so that the User can choose various products and nations simultaneously for the purpose of their analysis.
