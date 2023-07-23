@@ -23,7 +23,6 @@ Copyright (C) 2023 Kshitij Kar, Alejandra Camelo Cruz
 contact email: camelocruz@uni-potsdam.de, kar@uni-potsdam.de
 
 """
-
 import os
 import argparse
 import logging
@@ -33,10 +32,10 @@ import numpy as np
 
 class Preprocessor:
     '''Preprocessor for data cleaning and data filtering'''
-    
+
     def __init__(self):
         self.data_folder = self._get_relative_data_directory()
-        self.files = [os.path.join(self.data_folder, file) 
+        self.files = [os.path.join(self.data_folder, file)
                       for file in os.listdir(self.data_folder)]
         self.product = "Education"
         self.cl = ['Austria',
@@ -94,7 +93,7 @@ class Preprocessor:
                 outlist.append(country.split(": ")[-1].replace(" ","_"))
             else:
                 outlist.append(country.split(",")[0].replace(" ","_"))
-                
+
         return outlist
 
 
@@ -122,9 +121,10 @@ class Preprocessor:
         data = data.drop(columns=["Unnamed: 0"])
         data.columns = [c.strip().replace(" ","_") for c in data.columns.values.tolist()]
         data.index = self._index_cleaning(data.index.tolist())
-        
+
         return data
-    
+
+
     def list_products(self) -> list:
         '''
         List products available in a data file
@@ -142,8 +142,8 @@ class Preprocessor:
             else:
                 continue
         return list_products
-        
-    
+
+
     def by_product(self, product:str) -> pd.DataFrame:
         '''
         This function asks the user to input the product they wish to analyse 
@@ -173,18 +173,16 @@ class Preprocessor:
                 self.data_file = os.path.abspath(
                     os.path.join(self.data_folder, f"Consumer_Price_Index_CPI_{product}.xlsx"))
                 data = self._data_cleaning(self.data_file)
-                
+
                 return data
-            
+
             else:
                 logging.basicConfig(level=logging.INFO)
                 logging.info(bcolors.WARNING + f"{product} is not a valid option."+
                 bcolors.ENDC)
                 print(self.list_products())
-                
-        
-    
-    
+
+
     def list_countries(self, intext="") -> list:
         '''
         List all the countries available in a data file
@@ -210,25 +208,25 @@ class Preprocessor:
         #                 "a list with all available countries: ")
         # else:
         #     pass
-            
+
         intext = intext.capitalize()
         all_countries = (intext == "" or intext == 'All')
-        
 
         if all_countries:
             logging.basicConfig(level=logging.INFO)
             logging.info(bcolors.HEADER + f"Additional options for regions :"+
               bcolors.ENDC)
             print(continent_list)
-            
+
             return [country.capitalize() for country in list_countries]
-        
+
         elif intext in continent_list:
             temp_data = self._data_cleaning(
-                file_location="../data/product_group_CPI/"+intext.lower()+"_products_CPI/CPI_Education.csv")
-            
+                file_location="../data/product_group_CPI/"+intext.lower()+
+                "_products_CPI/CPI_Education.csv")
+
             return temp_data.index.to_list()
-        
+
         else:
             if intext.endswith("*"):
                 list_countries_specific = []
@@ -242,8 +240,8 @@ class Preprocessor:
                     if intext in country:
                         list_countries_specific.append(country)
                 return [country.capitalize() for country in list_countries_specific]
-    
-    
+
+
     def by_country(self, product:str, cl:list) -> pd.DataFrame:
         '''
         Returns data with selected countries.
@@ -270,18 +268,17 @@ class Preprocessor:
         #     country_list[index] = country_list[index].capitalize()
         logging.info(bcolors.OKGREEN+f"You have chosen the following countries : {cl}"
                      +bcolors.ENDC)
-        
+
         data = self.by_product(product)
         available_countries = [country for country in cl if country in data.index]
         wrong_countries = [country for country in cl if country not in data.index]
 
-
         data_countries = data.loc[available_countries]
         if len(wrong_countries) != 0:
-            print(f"These countries are not available or misspelled:\n {wrong_countries}") 
+            print(f"These countries are not available or misspelled:\n {wrong_countries}")
         return data_countries
-    
-    
+
+
     def list_years(self) -> list:
         '''
         List years available in a data file
@@ -293,11 +290,12 @@ class Preprocessor:
 
         '''
 
-        data = self.by_country(self.product, self.cl);
+        data = self.by_country(self.product, self.cl)
         available_time = data.columns.values
 
         return available_time
-    
+
+
     def by_year(self, product:str, cl:list, start, stop) -> pd.DataFrame:
         '''
         Returns data with selected years.
@@ -329,19 +327,21 @@ class Preprocessor:
                                                         values == stop)[0][0]]
             data_years = data[wanted_columns]
             logging.basicConfig(level=logging.INFO)
-            logging.info(bcolors.OKGREEN+f"You have chosen the time data from {wanted_columns[0]} to {wanted_columns[-1]}"
+            logging.info(bcolors.OKGREEN+f"You have chosen the time data from \
+                         {wanted_columns[0]} to {wanted_columns[-1]}"
                         +bcolors.ENDC)
 
-            return data_years    
+            return data_years
         else:
             print(f"Either '{start}' or '{stop}' is incorrect.")
             print("Available periods are :")
             print(data.columns.values)
-    
+
+
     @staticmethod
     def _get_relative_data_directory():
         '''
-        
+        A static function, it return relative directory of a data. 
 
         Returns
         -------
@@ -351,10 +351,10 @@ class Preprocessor:
         '''
         current_dir = os.path.dirname(__file__)
         data_dir = os.path.abspath(os.path.join(current_dir, os.pardir, 'data'))
-        
+
         return data_dir
-        
-    
+
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -365,16 +365,27 @@ class bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
-    
+
 
 def main(args):
+    """
+    The main entry function from the command line interface.
+
+    Parameters
+    ----------
+    args : TYPE
+        Accepts arguments product,country list, period of time from command line.
+
+    Returns
+    -------
+    None.
+
+    """
     prpr = Preprocessor()
     no_product = (not args.product or args.product is None)
-    no_countries = (not args.countries or args.countries is None) 
+    no_countries = (not args.countries or args.countries is None)
     no_time = not args.time
-    
-    
-    
+
     if no_product:
         logging.error(bcolors.FAIL+"Missing argument : -p, --products is required."
                       +bcolors.ENDC)
@@ -382,21 +393,21 @@ def main(args):
     else:
         if no_countries:
             prpr.by_product(args.product)
-            logging.warning(bcolors.WARNING+"Missing argument : -c, --countries can be specified."
+            logging.warning(bcolors.WARNING+"Missing argument : -c, --countries\
+                            can be specified."
                          +bcolors.ENDC)
             print(prpr.list_countries())
         else:
             if no_time:
                 prpr.by_country(args.product,args.countries)
-                logging.warning(bcolors.WARNING+"Missing argument : -t, --time can be specified. Correct format: "+
+                logging.warning(bcolors.WARNING+"Missing argument : -t, --time \
+                                can be specified. Correct format: "+
                       'start:Month_year  end:Month_year e.g Jan_2010 Dec_2012'+bcolors.ENDC)
                 print(prpr.list_years())
             else:
                 start,stop = args.time
                 data = prpr.by_year(args.product,args.countries,start,stop)
-                
-
-
+                print(data)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
@@ -405,5 +416,4 @@ if __name__ == "__main__":
     parser.add_argument('-t', '--time', type=str, nargs=2, help='Start, Stop')
 
     args = parser.parse_args()
-
     main(args)

@@ -1,90 +1,71 @@
 # Requirements
 
-Our project is divided into three main functionalities
+Our project is divided into three main functionalities, namely:
 
 1. Preprocessing
 2. Analysis
 3. Plotting
 
-Each of these functionalities are addressed following Object Oriented Programming, split in three classes: 
-    1) Preprocessor, 2) Analysis, 3) Plotter. We made for every class User Stories with which we can find out what 
-    potential must-, should- or would- requirements need to be met.
+Each of these functionalities are addressed following Object Oriented Programming, splitted in to three classes: 1) Preprocessor, 2) Analysis, 3) Plotter. We have 
 
 # Functional Requirements
+
 
 ## Preprocessor
 
 ### User stories
 
-- As available datasets are scattered and inc omplete, I would like to have a better **summarized version of the data with information of chosen countries, years and product**. 
- 
-- I would like to know **which countries are available in which specific regions**.
+- As a user, I would like to have a better **summarized version of the data with information of chosen countries, years and product**, so that the available scattered and incomplete datasets are ready for analysis.
+- As a user, I would like to know **which countries are available in which specific regions**, so that I can formulate my inputs.
+- As a user, I would like the program to tell me **which countries do not have available data for specific products or years**, so that I can make a decision based on the completeness of the data..
+- As a user, I would like to know **which of the data were incomplete/deleted after the cleaning and filtering**, so that I can make a decision on the result to fit my summary,
 
-- I would like the program to tell me **which countries do not have available data for specific products or years**.
+| Must                                                |                       Should                        |                           Could                            | Would |
+| :-------------------------------------------------- | :-------------------------------------------------: | :--------------------------------------------------------: | :---: |
+| **Cleaning:** dealing with missing data             | inform which countries, years, products are missing | Report a summary of actions taken after cleaning filtering |       |
+| **Filtering:** filtering countries, years, products |                                                     |                                                            |       |
 
-- After the cleaning and filtering of the data, it would be nice to know **which of the data were incomplete/deleted to fit my summary**.
-
-### must
-
-- **cleaning:** dealing with missing data 
-- **filtering:** filtering countries, years, products
-
-### should
-
-- inform which countries, years, products are missing
-
-### could
-
-- Report a summary of actions taken after cleaning filtering
-
-
-## Analyser
+## Analyzer
 
 ### User stories
 
-- As an economic analyst, I want to calculate the inflation rate 
-for a specific country over a particular period to understand the economic development.
+- As a researcher, I want to know the inflation rate of a product in multiple countries so that I can analyze which country has recorded the highest or the lowest inflation rate. 
+- As a researcher, I want to know products’ inflation rate of a country, so that I can see which product has inflated or deflated in a specific period of time. 
+- As a researcher, I want to know countries inflation rate of a specific product , so that I can see how much product's inflation has changed for countries in months or years.
+- As a researcher, I want to know specific product’s inflations rate of countries in a continent so that I can see in which that continent country has the highest or the lowest inflation rate. 
 
-- As a data scientist, I want to analyze all available products for a specific country 
-over a period to identify trends and patterns in consumer prices.
+#### Priority
 
-- As a researcher, I want to compare inflation rates for different products in a specific 
-country to examine the impact of price changes on the economy and consumers.
+| Must                                                         |                  Should                   |                            Could                             |           Would            |
+| :----------------------------------------------------------- | :---------------------------------------: | :----------------------------------------------------------: | :------------------------: |
+| Calculate products’ inflation rate of a country in a period of time. | Provide action selection option for users | Calculate countries' highest and lowest inflation recorded month. | Forecasting Inflation Rate |
+| Calculate overall inflation rate of a country in a period of time. |                                           |                                                              |                            |
+| Calculate inflation rate of countries in a continent.        |                                           |                                                              |                            |
+| Calculate monthly inflation rate                             |                                           |                                                              |                            |
+| Calculate product's inflation rate of countries in a period of time.. |                                           |                                                              |                            |
 
-### must
-
-- It should return the calculated inflation rate as a numeric value or a percentage.
-
-- The DataFrame should be properly labeled with product names and time points for easy comparison.
-### could
-
-- The method could handle missing data or incomplete data for certain time points and provide a warning or appropriate handling.
 
 
 ## Plotter
 
 ### User stories
 
-- After I have chosen my Dataset, I want to have a clear visualisation of the data as an appropriate plot. 
+- As a researcher, I want to plot a graph of product inflation rate so that I can see which product has recorded the highest or the lowest inflation rate through time. 
+- As a researcher, I want to plot a graph for all products inflation rate of a country, so that I can see which product has inflated or deflated in a specific period of time for the specific country. 
 
-- When my plot is output it should show me data of the products in the previous chosen countries.
+#### Priority
 
-- I would like the plot to show me a legend with all important information, in order to quickly understand what the plot tries to show me.
+| Must                                                 |                            Should                            | Could |                            Would                             |
+| :--------------------------------------------------- | :----------------------------------------------------------: | :---: | :----------------------------------------------------------: |
+| Plot a graph that shows product inflation rate       | Plot a variety of appropriate graph that clearly shows analysis result |       | Plot a map that shows all countries' of  inflation rate in the continent |
+| Plot a graph that shows all products' inflation rate |                                                              |       |                                                              |
 
-### must
 
-- The Plot should be visually clear
 
-- The Data must be ploted out correctly
+# Non-Functional requirements
 
-### could
+The following non-functional requirements are intended to specify qualities that are not directly related to program's functionality. 
 
-- Gives out a legend with the used information
-
-# Nonfunctional requirements
-
-- The Analyser should provide timely responses to user inputs and deliver analysis results promptly to support real-time decision-making.
-
-- The class should be designed in a way that allows it to work with other relevant software or libraries commonly used in data analysis and manipulation.
-
-- The calculated inflation rates and other analytical results should be accurate, with a high level of precision, to ensure reliable analysis and decision-making.
+- The output of the application (analysis result) will be easy to read and understand.
+- The application will guide the user with clear error messages and recommended input possibilities.
+- The application result can easily be exported or saved to a standard file type.
