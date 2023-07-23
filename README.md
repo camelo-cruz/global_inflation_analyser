@@ -37,10 +37,6 @@ Otherwhise, for installing it with pip, run:
 pip install -e .
 ```
 
-### Package
-
-If you want to use it as a python package, install it with conda, or pip, using the following commands.
-
 ## Usage Guides
 
 After you have moved yourself in the repository where you saved the project. You will notice that you have three classes 
