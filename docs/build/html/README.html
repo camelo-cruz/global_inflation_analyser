@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>About The Project &#8212; global inflation analyser 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="about-the-project">
+<h1>About The Project<a class="headerlink" href="#about-the-project" title="Permalink to this headline">¶</a></h1>
+<p>This project is named as Global Inflation Analyzer (GIA). It is a python
+library, and written to give a comprehensive analysis of inflation rate.
+The library can be used to perform analysis based on a given dataset
+with the classification standard of classification of individual
+consumption by purpose (COICOP 2-5-digit hierarchy).</p>
+<p>With the dataset contained data about consumer price index for group of
+products and services, the library will analyze the following main
+questions or features:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>1. How much has inflation changed during the given range of years?
+2. In what amount, inflation recorded after or before specific year (e.g. COVID-19 or UKRAIN WAR)?
+3. Which group of products or services is highly affected after specific year?
+4. In which year was high inflation recorded?
+5. What is the inflation rate of a specific products or services globally?
+6. What is the inflation rate of a specific products or services group (specific Country)?
+</pre></div>
+</div>
+</section>
+<section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<section id="repository">
+<h2>Repository<a class="headerlink" href="#repository" title="Permalink to this headline">¶</a></h2>
+<p>Install Global_Inflation_Analyser and go to root folder:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">gitup</span><span class="o">.</span><span class="n">uni</span><span class="o">-</span><span class="n">potsdam</span><span class="o">.</span><span class="n">de</span><span class="o">/</span><span class="n">kar</span><span class="o">/</span><span class="n">global_inflation_analyser</span>
+<span class="n">cd</span> <span class="n">global_inflation_analyser</span>
+</pre></div>
+</div>
+<p>After you downloaded our repository, make sure you have Python installed
+and all the dependencies needed for the project.</p>
+<blockquote>
+<div><p>Make sure you are in the folder containing the software. Check it
+running pwd in terminal. it should end in global_inflation_analyser</p>
+</div></blockquote>
+<p>If you are using conda, you can download all the dependencies, while
+being in the root folder, with the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>Otherwhise, for installing it with pip, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="usage-guides">
+<h1>Usage Guides<a class="headerlink" href="#usage-guides" title="Permalink to this headline">¶</a></h1>
+<p>After you have moved yourself in the repository where you saved the
+project. You will notice that you have three classes provided to you:
+preprocessor, analysis and the plotter class. With the Preprocessor
+class the provided data will be cleaned and filtered to your User needs.
+The Analysis class calculates the Inflation rate of the given data set
+and merge all products inflation rate of a given country for specific
+period of time. The plotter class provides plots with the previous
+analysed data. Generally if you want to use the Project we would
+recommend to use the provided Jupyter Notebook and to run all the cells
+in their given order. While running the cells you will notice you need
+to choose your data set and the years you want. After you executed the
+plotting part, your results will be saved in the results directory where
+you can look up all the plots.</p>
+<p>The second option that you have is to run the separate python files one
+after another. It means you would run the preprocessor.py. Please be
+aware you need to be in the directory where the code actually is. So if
+you are for example in global_inflation_analyser:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Moving to the Directory</span>
+    <span class="n">cd</span> <span class="n">global_inflation_analyser</span>
+
+<span class="c1"># Displaying the help</span>
+    <span class="n">python</span> <span class="n">preprocessor</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">h</span>
+
+<span class="c1"># Example: Specify product name</span>
+    <span class="n">python</span> <span class="n">preprocessor</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">p</span> <span class="n">Education</span>
+
+<span class="c1"># Example: Specify product name and list of countries</span>
+    <span class="n">python</span> <span class="n">preprocessor</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">p</span> <span class="n">Education</span> <span class="o">-</span><span class="n">c</span> <span class="n">Germany</span> <span class="n">France</span> <span class="n">Italy</span>
+
+<span class="c1"># Example: Specify product name, list of countries, and time period</span>
+    <span class="n">python</span> <span class="n">preprocessor</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">p</span> <span class="n">Education</span> <span class="o">-</span><span class="n">c</span> <span class="n">Germany</span> <span class="n">France</span> <span class="n">Italy</span> <span class="o">-</span><span class="n">t</span> <span class="n">Jan_2010</span> <span class="n">Dec_2012</span>
+</pre></div>
+</div>
+<p>After that you would run the analysis.py.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Displaying the help</span>
+    <span class="n">python</span> <span class="n">analysis</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">h</span>
+
+<span class="c1"># Example:</span>
+    <span class="n">python</span> <span class="n">analysis</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">p</span> <span class="n">Education</span> <span class="o">-</span><span class="n">c</span> <span class="n">Germany</span> <span class="n">France</span> <span class="n">Italy</span> <span class="o">-</span><span class="n">t</span> <span class="n">Jan_2023</span> <span class="n">Dec_2023</span>
+</pre></div>
+</div>
+<p>And in the End the plotter.py.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Displaing the help</span>
+    <span class="n">python</span> <span class="n">plotter</span><span class="o">.</span><span class="n">py</span>
+
+<span class="c1"># Example:</span>
+    <span class="n">python</span> <span class="n">plotter</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">p</span> <span class="s2">&quot;productname&quot;</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;country1&quot;</span> <span class="s2">&quot;country2&quot;</span> <span class="o">-</span><span class="n">t</span> <span class="s2">&quot;Jan_2021&quot;</span> <span class="s2">&quot;Dec_2022&quot;</span> <span class="o">-</span><span class="n">a</span> <span class="s2">&quot;product&quot;</span>
+</pre></div>
+</div>
+<p>You could only run the plotter, as it calls all the other objects.</p>
+<p>After that you should be again able to look up the plots in the results
+directory.</p>
+</section>
+<section id="features">
+<h1>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Comparison Table</p></li>
+<li><p>Line Plot Diagramm</p></li>
+<li><p>Bar Plot Diagramm</p></li>
+<li><p>Boxplot Diagramm</p></li>
+<li><p>Dataset can be adjusted</p>
+<ul>
+<li><p>Years adjustable</p></li>
+<li><p>Product adjustable</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="documentation">
+<h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
+<p>Please see <a class="reference external" href="https://pypi.org/project/global-inflation-analyser/">Global Inflation Analyzer
+documentation</a>
+for more information.</p>
+</section>
+<section id="code-of-conduct">
+<h1>Code of conduct<a class="headerlink" href="#code-of-conduct" title="Permalink to this headline">¶</a></h1>
+<p>Our code of conduct can be found in the code of
+<a class="reference external" href="./CONDUCT.md">CONDUCT.md</a> file in the global_inflation_analyser
+repository.</p>
+</section>
+<section id="contribution-guidelines">
+<h1>Contribution Guidelines<a class="headerlink" href="#contribution-guidelines" title="Permalink to this headline">¶</a></h1>
+<p>Contributions are always welcome, if you want to find out how to
+contribute to the Project read the
+<a class="reference external" href="./CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
+<blockquote>
+<div><p>GPL-3.0-or-later</p>
+</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Copyright</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="mi">2023</span> <span class="n">Alejandra</span> <span class="n">Camelo</span> <span class="n">Cruz</span>
+
+<span class="n">This</span> <span class="n">program</span> <span class="ow">is</span> <span class="n">free</span> <span class="n">software</span><span class="p">:</span> <span class="n">you</span> <span class="n">can</span> <span class="n">redistribute</span> <span class="n">it</span> <span class="ow">and</span><span class="o">/</span><span class="ow">or</span> <span class="n">modify</span>
+<span class="n">it</span> <span class="n">under</span> <span class="n">the</span> <span class="n">terms</span> <span class="n">of</span> <span class="n">the</span> <span class="n">GNU</span> <span class="n">General</span> <span class="n">Public</span> <span class="n">License</span> <span class="k">as</span> <span class="n">published</span> <span class="n">by</span>
+<span class="n">the</span> <span class="n">Free</span> <span class="n">Software</span> <span class="n">Foundation</span><span class="p">,</span> <span class="n">either</span> <span class="n">version</span> <span class="mi">3</span> <span class="n">of</span> <span class="n">the</span> <span class="n">License</span><span class="p">,</span> <span class="ow">or</span>
+<span class="nb">any</span> <span class="n">later</span> <span class="n">version</span><span class="o">.</span>
+
+<span class="n">This</span> <span class="n">program</span> <span class="ow">is</span> <span class="n">distributed</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">hope</span> <span class="n">that</span> <span class="n">it</span> <span class="n">will</span> <span class="n">be</span> <span class="n">useful</span><span class="p">,</span>
+<span class="n">but</span> <span class="n">WITHOUT</span> <span class="n">ANY</span> <span class="n">WARRANTY</span><span class="p">;</span> <span class="n">without</span> <span class="n">even</span> <span class="n">the</span> <span class="n">implied</span> <span class="n">warranty</span> <span class="n">of</span>
+<span class="n">MERCHANTABILITY</span> <span class="ow">or</span> <span class="n">FITNESS</span> <span class="n">FOR</span> <span class="n">A</span> <span class="n">PARTICULAR</span> <span class="n">PURPOSE</span><span class="o">.</span>  <span class="n">See</span> <span class="n">the</span>
+<span class="n">GNU</span> <span class="n">General</span> <span class="n">Public</span> <span class="n">License</span> <span class="k">for</span> <span class="n">more</span> <span class="n">details</span><span class="o">.</span>
+
+<span class="n">You</span> <span class="n">should</span> <span class="n">have</span> <span class="n">received</span> <span class="n">a</span> <span class="n">copy</span> <span class="n">of</span> <span class="n">the</span> <span class="n">GNU</span> <span class="n">General</span> <span class="n">Public</span> <span class="n">License</span>
+<span class="n">along</span> <span class="k">with</span> <span class="n">this</span> <span class="n">program</span><span class="o">.</span>  <span class="n">If</span> <span class="ow">not</span><span class="p">,</span> <span class="n">see</span> <span class="o">&lt;</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">gnu</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">licenses</span><span class="o">/&gt;.</span>
+</pre></div>
+</div>
+<p>Full license text can be recovered <a class="reference external" href="COPYING.txt">here</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cff</span><span class="o">-</span><span class="n">version</span><span class="p">:</span> <span class="mf">1.0</span><span class="o">.</span>
+<span class="n">title</span><span class="p">:</span> <span class="n">Important</span> <span class="n">factors</span> <span class="n">of</span> <span class="n">migration</span> <span class="n">to</span> <span class="n">Germany</span>
+<span class="n">message</span><span class="p">:</span> <span class="o">&gt;-</span>
+  <span class="n">If</span> <span class="n">you</span> <span class="n">use</span> <span class="n">this</span> <span class="n">software</span><span class="p">,</span> <span class="n">please</span> <span class="n">cite</span> <span class="n">it</span> <span class="n">using</span> <span class="n">the</span>
+  <span class="n">metadata</span> <span class="kn">from</span> <span class="nn">this</span> <span class="n">file</span><span class="o">.</span>
+<span class="nb">type</span><span class="p">:</span> <span class="n">software</span>
+<span class="n">authors</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">given</span><span class="o">-</span><span class="n">names</span><span class="p">:</span> <span class="n">Alejandra</span>
+    <span class="n">family</span><span class="o">-</span><span class="n">names</span><span class="p">:</span> <span class="n">Camelo</span> <span class="n">Cruz</span>
+    <span class="n">email</span><span class="p">:</span> <span class="n">camelocruz</span><span class="nd">@uni</span><span class="o">-</span><span class="n">potsdam</span><span class="o">.</span><span class="n">de</span>
+    <span class="n">affiliation</span><span class="p">:</span> <span class="n">University</span> <span class="n">of</span> <span class="n">Potsdam</span><span class="p">,</span> <span class="n">Institute</span> <span class="k">for</span> <span class="n">Informatics</span> <span class="ow">and</span> <span class="n">Computational</span> <span class="n">Science</span>
+<span class="n">repository</span><span class="o">-</span><span class="n">code</span><span class="p">:</span> <span class="s1">&#39;https://gitup.uni-potsdam.de/camelocruz/immigration_rse&#39;</span>
+<span class="n">abstract</span><span class="p">:</span> <span class="o">&gt;</span>
+  <span class="n">This</span> <span class="n">software</span> <span class="n">aims</span> <span class="n">at</span> <span class="n">summarizing</span> <span class="n">important</span> <span class="n">factors</span> <span class="n">of</span>
+  <span class="n">immigration</span>  <span class="ow">in</span> <span class="n">Germany</span><span class="p">,</span> <span class="n">such</span> <span class="k">as</span><span class="p">:</span> <span class="n">number</span> <span class="n">of</span> <span class="n">immigrants</span><span class="p">,</span>
+  <span class="n">origin</span> <span class="n">countries</span><span class="p">,</span> <span class="n">sex</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="ow">and</span> <span class="n">concentration</span> <span class="ow">and</span> <span class="n">movement</span>
+  <span class="n">between</span> <span class="n">Bundesländer</span><span class="o">.</span>
+<span class="n">license</span><span class="p">:</span> <span class="n">GPL</span><span class="o">-</span><span class="mf">3.0</span><span class="o">-</span><span class="ow">or</span><span class="o">-</span><span class="n">later</span>
+<span class="n">version</span><span class="p">:</span> <span class="mf">1.0</span><span class="o">.</span>
+<span class="n">date</span><span class="o">-</span><span class="n">released</span><span class="p">:</span> <span class="s1">&#39;2023-06-04&#39;</span>
+</pre></div>
+</div>
+<p>The information for citation can be used from the <a class="reference external" href="CITATION.cff">.cff
+file</a> in the root folder</p>
+</section>
+<section id="contact-information">
+<h1>Contact Information<a class="headerlink" href="#contact-information" title="Permalink to this headline">¶</a></h1>
+<p>If you have any question regarding this library, please feel free to get
+in touch with us:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="mailto:leon&#46;oparin&#37;&#52;&#48;uni-potsdam&#46;de">leon<span>&#46;</span>oparin<span>&#64;</span>uni-potsdam<span>&#46;</span>de</a></p></li>
+<li><p><a class="reference external" href="mailto:tsega&#37;&#52;&#48;uni-potsdam&#46;de">tsega<span>&#64;</span>uni-potsdam<span>&#46;</span>de</a></p></li>
+<li><p><a class="reference external" href="mailto:kar&#37;&#52;&#48;uni-potsdam&#46;de">kar<span>&#64;</span>uni-potsdam<span>&#46;</span>de</a></p></li>
+<li><p><a class="reference external" href="mailto:Camelocruz&#37;&#52;&#48;uni-potsdam&#46;de">camelocruz<span>&#64;</span>uni-potsdam<span>&#46;</span>de</a></p></li>
+</ul>
+</section>
+<section id="acknowledgement">
+<h1>Acknowledgement<a class="headerlink" href="#acknowledgement" title="Permalink to this headline">¶</a></h1>
+<p>We would like to thank the whole Group and the University of Potsdam for
+the Opportunity to work on such a project and give us the needed
+knowledge in order to make such a project.</p>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">global inflation analyser</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Alejandra Camelo Cruz, Bruk Asrat Tsega, Leon Oparin, kshitij Kar.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/README.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

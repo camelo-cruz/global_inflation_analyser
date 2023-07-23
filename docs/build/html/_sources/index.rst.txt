@@ -5,11 +5,10 @@
 
 Welcome to global inflation analyser's documentation!
 =====================================================
-
 .. toctree::
    :maxdepth: 2
+   readme_link
    :caption: Contents:
-
 
 
 Indices and tables
